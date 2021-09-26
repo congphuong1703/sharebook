@@ -4,6 +4,11 @@ body {
     padding-bottom: 20px;
 }
 
+a:hover {
+    opacity: 0.8;
+    text-decoration: none;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
@@ -28,4 +33,56 @@ textarea {
     .body-content {
         padding: 0;
     }
+}
+
+.ms-auto {
+    margin-left: auto !important;
+}
+
+@media (min-width: 992px) {
+    #mainNav .navbar-brand {
+        font-size: 1.75em;
+        transition: font-size 0.3s;
+    }
+}
+
+#mainNav .navbar-brand {
+    color: #fff;
+}
+
+#mainNav .navbar-nav li.nav-item a.nav-link {
+    color: #fff;
+}
+
+#mainNav {
+    font-weight: 700;
+}
+
+.bg-secondary {
+    background-color: #2c3e50 !important;
+}
+
+.main-card {
+    margin-top: 5rem;
+}
+.footer a{
+    color:#fff;
+}
+li {
+    list-style-type:none;
+}
+
+.footer {
+    background-color: #2c3e50 !important;
+}
+
+.footer-heading {
+    text-transform: uppercase;
+}
+.copyright{
+    color:#fff;
+}
+.footer-social {
+    display: flex;
+    justify-content: center;
 }

@@ -11,7 +11,7 @@ namespace sharebook
 {
 
 
-    public partial class About
+    public partial class Post
     {
     }
 }

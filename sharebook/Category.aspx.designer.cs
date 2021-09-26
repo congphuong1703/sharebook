@@ -11,7 +11,7 @@ namespace sharebook
 {
 
 
-    public partial class Contact
+    public partial class Category
     {
     }
 }

@@ -11,7 +11,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+    <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto" style="width:80%">
         <div class="card card0 border-0">
             <div class="row d-flex">
                 <div class="col-lg-6">
@@ -35,9 +35,9 @@
                 <div class="row px-3">
                     <small class="ml-4 ml-sm-5 mb-2">Mang kiến thức đến mọi nơi</small>
                     <div class="social-contact ml-4 ml-sm-auto">
-                        <span class="text-sm"><a href="https://www.facebook.com/trinhduyen1110" target="_blank">Quang Anh&ensp;<i class="fa fa-facebook mr-4 text-sm"></i></a></span>
+                        <span class="text-sm"><a href="https://www.facebook.com/quanganh.day07" target="_blank">Quang Anh&ensp;<i class="fa fa-facebook mr-4 text-sm"></i></a></span>
                         <span class="text-sm"><a href="https://www.facebook.com/trinhduyen1110" target="_blank">Công Phương&ensp;<i class="fa fa-facebook mr-4 text-sm"></i></a></span>
-                        <span class="text-sm"><a href="https://www.facebook.com/trinhduyen1110" target="_blank">Trịnh Duyên&ensp;<i class="fa fa-facebook mr-4 text-sm"></i></a></span>
+                        <span class="text-sm"><a href="https://www.facebook.com/congphuong1703" target="_blank">Trịnh Duyên&ensp;<i class="fa fa-facebook mr-4 text-sm"></i></a></span>
                     </div>
                 </div>
             </div>

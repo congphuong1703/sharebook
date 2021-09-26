@@ -1,0 +1,14 @@
+﻿body {
+}
+.main-card-2 {
+    margin: 0 20rem;
+}
+.card-top-left{
+
+}
+.card-bottom-left {
+    display: flex;
+    justify-content: space-around;
+    max-width: 80%;
+
+}
