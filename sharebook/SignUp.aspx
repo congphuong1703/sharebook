@@ -18,6 +18,12 @@
         </label>
         <input type="password" name="password" placeholder="Nhập mật khẩu">
     </div>
+     <div class="row px-3">
+        <label class="mb-1">
+            <h6 class="mb-0 text-sm">Nhập lại mật khẩu</h6>
+        </label>
+        <input type="rePassword" name="rePassword" placeholder="Nhập lại mật khẩu">
+    </div>
     <div class="row mb-3 px-3 mt-4">
         <button type="submit" class="btn btn-blue text-center">Đăng ký</button>
     </div>
