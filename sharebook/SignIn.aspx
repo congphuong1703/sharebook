@@ -10,19 +10,19 @@
         <label class="mb-1">
             <h6 class="mb-0 text-sm">Email</h6>
         </label>
-        <input class="mb-4" type="text" name="email" placeholder="Nhập email">
+        <asp:TextBox ID="email" runat="server" class="mb-4" type="text" name="email" placeholder="Nhập email"/>
     </div>
     <div class="row px-3">
         <label class="mb-1">
             <h6 class="mb-0 text-sm">Mật khẩu</h6>
         </label>
-        <input type="password" name="password" placeholder="Nhập mật khẩu">
+        <asp:TextBox ID="password" runat="server" type="password" name="password" placeholder="Nhập mật khẩu" />
     </div>
     <div class="row px-3 mb-4">
         <a href="ForgotPassword.aspx" class="ml-auto mb-0 text-sm">Quên mật khẩu?</a>
     </div>
     <div class="row mb-3 px-3">
-        <button type="submit" class="btn btn-blue text-center">Đăng nhập</button>
+        <asp:Button ID="logginBtn" type="submit" runat="server" Text="Đăng nhập" class="btn btn-blue text-center" OnClick="logginBtn_Click" />
     </div>
     <div class="row mb-4 px-3"><small class="font-weight-bold">Chưa có tài khoản?&ensp;<a href="SignUp.aspx" class="text-danger ">Đăng ký</a></small> </div>
 </asp:Content>
