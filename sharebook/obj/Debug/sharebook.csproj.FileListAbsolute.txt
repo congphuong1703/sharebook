@@ -69,3 +69,14 @@ C:\Users\Admin\source\repos\sharebook\sharebook\obj\Debug\sharebook.csproj.CoreC
 C:\Users\Admin\source\repos\sharebook\sharebook\obj\Debug\sharebook.csproj.CopyComplete
 C:\Users\Admin\source\repos\sharebook\sharebook\obj\Debug\sharebook.dll
 C:\Users\Admin\source\repos\sharebook\sharebook\obj\Debug\sharebook.pdb
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\MySql.Data.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\Google.Protobuf.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\Zstandard.Net.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\K4os.Compression.LZ4.Streams.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\BouncyCastle.Crypto.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\Ubiety.Dns.Core.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Buffers.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\K4os.Compression.LZ4.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\K4os.Hash.xxHash.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\MySql.Data.xml
