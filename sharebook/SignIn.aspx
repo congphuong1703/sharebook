@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Authen.Master" AutoEventWireup="true" CodeBehind="SignIn.aspx.cs" Inherits="sharebook.SignIn" %>
 
 <asp:Content ID="RightContent" ContentPlaceHolderID="AuthenContent" runat="server">
+    <form action="#" runat="server" method="get">
     <div class="row px-3 mb-4">
         <div class="line"></div>
         <h2 class="or text-center">Đăng Nhập</h2>
@@ -25,6 +26,7 @@
         <asp:Button ID="logginBtn" type="submit" runat="server" Text="Đăng nhập" class="btn btn-blue text-center" OnClick="logginBtn_Click" />
     </div>
     <div class="row mb-4 px-3"><small class="font-weight-bold">Chưa có tài khoản?&ensp;<a href="SignUp.aspx" class="text-danger ">Đăng ký</a></small> </div>
+        </form>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <title>Đăng Nhập</title>
