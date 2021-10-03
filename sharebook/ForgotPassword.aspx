@@ -13,7 +13,7 @@
         <asp:TextBox ID="txtEmail" runat="server" class="mb-4" type="text" name="email" placeholder="Nhập email" />
     </div>
     <div class="row mb-3 px-3 mt-4">
-        <asp:Button ID="forgetPasswordBtn" runat="server" type="submit" Text="Lấy lại mật khẩu" class="btn btn-blue text-center" />
+        <asp:Button ID="forgetPasswordBtn" runat="server" type="submit" Text="Lấy lại mật khẩu" class="btn btn-blue text-center" OnClick="forgetPasswordBtn_Click" />
     </div>
     <div class="row mb-4 px-3"><small class="font-weight-bold">Bạn đã có tài khoản?&ensp;<a href="SignIn.aspx" class="text-danger ">Đăng nhập</a></small> </div>
 </asp:Content>
