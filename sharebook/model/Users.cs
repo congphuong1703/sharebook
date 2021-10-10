@@ -10,7 +10,7 @@ namespace sharebook.model
         private int id;
         private String email;
         private String password;
-        private String username;
+        private String name;
         private Boolean status;
         private Boolean verify;
         private int role;
@@ -18,7 +18,7 @@ namespace sharebook.model
         public int Id { get => id; set => id = value; }
         public string Email { get => email; set => email = value; }
         public string Password { get => password; set => password = value; }
-        public string Username { get => username; set => username = value; }
+        public string Name { get => name; set => name = value; }
         public bool Status { get => status; set => status = value; }
         public bool Verify { get => verify; set => verify = value; }
         public int Role { get => role; set => role = value; }

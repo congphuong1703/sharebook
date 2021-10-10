@@ -64,7 +64,6 @@ C:\Users\Admin\source\repos\sharebook\sharebook\bin\Newtonsoft.Json.xml
 C:\Users\Admin\source\repos\sharebook\sharebook\bin\Antlr3.Runtime.pdb
 C:\Users\Admin\source\repos\sharebook\sharebook\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\Admin\source\repos\sharebook\sharebook\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Admin\source\repos\sharebook\sharebook\obj\Debug\sharebook.csprojAssemblyReference.cache
 C:\Users\Admin\source\repos\sharebook\sharebook\obj\Debug\sharebook.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\sharebook\sharebook\obj\Debug\sharebook.csproj.CopyComplete
 C:\Users\Admin\source\repos\sharebook\sharebook\obj\Debug\sharebook.dll
@@ -164,3 +163,6 @@ D:\UNIVERSITY\LTWNC\sharebook\sharebook\obj\Debug\sharebook.csproj.CoreCompileIn
 D:\UNIVERSITY\LTWNC\sharebook\sharebook\obj\Debug\sharebook.csproj.CopyComplete
 D:\UNIVERSITY\LTWNC\sharebook\sharebook\obj\Debug\sharebook.dll
 D:\UNIVERSITY\LTWNC\sharebook\sharebook\obj\Debug\sharebook.pdb
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Memory.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Numerics.Vectors.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\obj\Debug\sharebook.csproj.AssemblyReference.cache

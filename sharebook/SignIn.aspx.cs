@@ -17,14 +17,14 @@ namespace sharebook
         protected void logginBtn_Click(object sender, EventArgs e)
         {
             MySqlConnection conn = this.connectionSQL();
-            queryStr = "SELECT * FROM tbl_user WHERE email = '" + email.Text + "' and password = '" + password.Text + "'";
+            queryStr = "SELECT * FROM tbl_user WHERE email = '" + email.Text + "' and password = '" + password.Text + "' and verify = 1" ;
             cmd = new MySqlCommand(queryStr, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
             Users user = new Users();
             while (reader.HasRows && reader.Read())
             {
                 user.Email = reader.GetString(reader.GetOrdinal("email"));
-                user.Username = reader.GetString(reader.GetOrdinal("username"));
+                user.Name = reader.GetString(reader.GetOrdinal("name"));
                 user.Status = reader.GetBoolean("status");
                 user.Verify = reader.GetBoolean("verify");
                 user.Role = (int)reader.GetInt64("role");
@@ -36,7 +36,7 @@ namespace sharebook
             }
             else
             {
-
+                Response.Write("<script language='javascript'></script>");
             }
 
             reader.Close();

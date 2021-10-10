@@ -7,11 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace sharebook {
-    
-    
-    public partial class SignIn {
-        
+namespace sharebook
+{
+
+
+    public partial class SignIn
+    {
+
+        /// <summary>
+        /// form_login control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form_login;
+
+        /// <summary>
+        /// errorNotify control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label errorNotify;
+
         /// <summary>
         /// email control.
         /// </summary>
@@ -20,7 +40,7 @@ namespace sharebook {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox email;
-        
+
         /// <summary>
         /// password control.
         /// </summary>
@@ -29,7 +49,7 @@ namespace sharebook {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox password;
-        
+
         /// <summary>
         /// logginBtn control.
         /// </summary>

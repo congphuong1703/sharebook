@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -17,16 +20,35 @@ namespace sharebook
         protected void forgetPasswordBtn_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text;
-            Boolean isSuccessfulSendMail = sendMail(email);
-            if (isSuccessfulSendMail)
+            MySqlConnection conn;
+            using (conn = DataProvider.getInstance.connectionSQL())
             {
-                //todo thong bao thanh cong
-            }
-            else
-            {
+                MySqlCommand cmd;
+                using (cmd = new MySqlCommand("isExistAccount", conn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@p_email", email);
 
+                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    if (!rdr.HasRows)
+                    {
+                        errorNotify.Text = "Không tồn tại email";
+                        return;
+                    }
+                    if (sendMail(email))
+                    {
+                        Response.Write("<script language='javascript' type='text/javascript'>window.location.href='https://gmail.com'</script>");
+                    }
+                    else
+                    {
+                        errorNotify.Text = "Gửi email không thành công";
+                        return;
+                    }
+                    rdr.Close();
+                }
             }
         }
+
 
         public static string RandomString(int length)
         {
@@ -39,11 +61,22 @@ namespace sharebook
         {
             try
             {
-                var fromAddress = new MailAddress("from@gmail.com", "From Name");
-                var toAddress = new MailAddress("to@example.com", "To Name");
-                const string fromPassword = "fromPassword";
-                const string subject = "Subject";
-                const string body = "Body";
+                string newPassword = RandomString(8);
+
+                Dictionary<string, object> map = new Dictionary<string, object>();
+                map.Add("@p_email", email);
+                map.Add("@p_password", newPassword);
+                int rowsEffect = DataProvider.getInstance.ExecuteNonQuery("resetPassword", map);
+                if (rowsEffect < 1)
+                {
+                     return false;
+                }
+
+                var fromAddress = new MailAddress("congphuong.jav62@gmail.com", "Share Book");
+                var toAddress = new MailAddress("congphuong.vietnam62@gmail.com");
+                string fromPassword = "Conghpuong1a";
+                string subject = "Đổi mật khẩu - ShareBook";
+                string body = "Mật khẩu của bạn đã được thay đổi. Mật khẩu mới của bạn là : " + newPassword;
 
                 var smtp = new SmtpClient
                 {
@@ -60,10 +93,12 @@ namespace sharebook
                     Body = body
                 })
                     smtp.Send(message);
+
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return false;
+
             }
             return true;
         }

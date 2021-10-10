@@ -8,7 +8,6 @@ namespace sharebook
 
     public partial class SignUp : System.Web.UI.Page
     {
-        MySqlConnection conn;
         MySqlCommand cmd;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -17,53 +16,54 @@ namespace sharebook
 
         protected void signUp_Click(object sender, EventArgs e)
         {
+            MySqlConnection conn;
             string email = txtEmail.Text;
             string password = txtPassword.Text;
-
-            using (conn = this.connectionSQL())
+            string name = txtName.Text;
+            string confirmPassword = txtConfirmPassword.Text;
+            if (!password.Equals(confirmPassword))
             {
-                using (cmd = new MySqlCommand("isExistsEmail", conn))
+                errorNotify.Text = "Đăng ký thành thất bại. Kiểm tra lại mật khẩu";
+                return;
+            }
+            using (conn = DataProvider.getInstance.connectionSQL())
+            {
+                using (cmd = new MySqlCommand("isExistAccount", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@email", email);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (!reader.HasRows)
                     {
-                        using (cmd = new MySqlCommand("SignUp", conn))
+                        reader.Close();
+                        using (cmd = new MySqlCommand("createNewAccount", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@email", email);
-                            cmd.Parameters.AddWithValue("@password", password);
+                            cmd.Parameters.AddWithValue("@p_email", email);
+                            cmd.Parameters.AddWithValue("@p_password", password);
+                            cmd.Parameters.AddWithValue("@p_role", 1);
+                            cmd.Parameters.AddWithValue("@p_name", name);
 
                             MySqlDataReader rdr = cmd.ExecuteReader();
                             if (rdr.HasRows)
                             {
-                                //todo thong bao thanh cong
+                                Response.Write("<script language='javascript' type='text/javascript'>window.location.href = 'https://gmail.com'</script>");
                             }
                             else
                             {
-                                //todo thong bao that bai
+                                errorNotify.Text = "Đăng ký thành thất bại. Kiểm tra lại thông tin";
                             }
+                            rdr.Close();
                         }
                     }
                     else
                     {
-                        //todo thong bao trung
+                        errorNotify.Text = "Email này đã được sử dụng.";
                     }
 
                 }
-
-
             }
         }
 
-        private MySqlConnection connectionSQL()
-        {
-            string constr = ConfigurationManager.ConnectionStrings["connectSQL"].ToString();
-            conn = new MySqlConnection(constr);
-            conn.Open();
-
-            return conn;
-        }
     }
 }
