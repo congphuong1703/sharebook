@@ -28,177 +28,202 @@ namespace sharebook
 
             return conn;
         }
-        public DataTable ExecuteQuery(string query, object[] parameter = null)
+
+        public DataTable SelectAllFrom(string query)
         {
-            DataTable data = new DataTable();
-
-
-            //tạo kết nối tới database
-            // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
-            using (MySqlConnection connection = this.connectionSQL())
+            var _dataTable = new DataTable();
+            try
             {
-                // chạy câu thực thi câu truy vấn query trên data connection
-                MySqlCommand command = new MySqlCommand(query, connection);
-
-                if (parameter != null)
+                var _conn = this.connectionSQL();
+                var _cmd = new MySqlCommand
                 {
-                    string[] listPara = query.Split(' ');
-                    int i = 0;
-                    foreach (string item in listPara)
+                    Connection = _conn,
+                    CommandText = query
+                };
+                _cmd.ExecuteNonQuery();
+
+                var _da = new MySqlDataAdapter(_cmd);
+                _da.Fill(_dataTable);
+                _conn.Close();
+            }
+            finally
+            {
+
+            }
+            return _dataTable;
+        }
+
+            public DataTable ExecuteQuery(string query, object[] parameter = null)
+            {
+                DataTable data = new DataTable();
+
+
+                //tạo kết nối tới database
+                // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
+                using (MySqlConnection connection = this.connectionSQL())
+                {
+                    // chạy câu thực thi câu truy vấn query trên data connection
+                    MySqlCommand command = new MySqlCommand(query, connection);
+
+                    if (parameter != null)
                     {
-                        if (item.Contains('@'))
+                        string[] listPara = query.Split(' ');
+                        int i = 0;
+                        foreach (string item in listPara)
                         {
-                            command.Parameters.AddWithValue(item, parameter[i]);
-                            i++;
+                            if (item.Contains('@'))
+                            {
+                                command.Parameters.AddWithValue(item, parameter[i]);
+                                i++;
+                            }
                         }
                     }
+
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+
+                    adapter.Fill(data);
+
+                    connection.Close();
                 }
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-
-                adapter.Fill(data);
-
-                connection.Close();
+                return data;
             }
-            return data;
-        }
 
-        // số dòng trả ra thành công
-        public int ExecuteNonQuery(string query, object[] parameter = null)
-        {
-            int data = 0;
-
-            using (MySqlConnection connection = this.connectionSQL())
+            // số dòng trả ra thành công
+            public int ExecuteNonQuery(string query, object[] parameter = null)
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
+                int data = 0;
 
-                if (parameter != null)
+                using (MySqlConnection connection = this.connectionSQL())
                 {
-                    string[] listPara = query.Split(' ');
-                    int i = 0;
-                    foreach (string item in listPara)
+                    MySqlCommand command = new MySqlCommand(query, connection);
+
+                    if (parameter != null)
                     {
-                        if (item.Contains('@'))
+                        string[] listPara = query.Split(' ');
+                        int i = 0;
+                        foreach (string item in listPara)
                         {
-                            command.Parameters.AddWithValue(item, parameter[i]);
-                            i++;
+                            if (item.Contains('@'))
+                            {
+                                command.Parameters.AddWithValue(item, parameter[i]);
+                                i++;
+                            }
                         }
                     }
+
+                    data = command.ExecuteNonQuery(); // trả ra số dòng thành công
+
+                    connection.Close();
                 }
-
-                data = command.ExecuteNonQuery(); // trả ra số dòng thành công
-
-                connection.Close();
+                return data;
             }
-            return data;
-        }
 
-        // đếm số lượng trả ra
-        public object ExecuteScalar(string query, object[] parameter = null)
-        {
-            object data = 0;
-
-
-            using (MySqlConnection connection = this.connectionSQL())
+            // đếm số lượng trả ra
+            public object ExecuteScalar(string query, object[] parameter = null)
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
+                object data = 0;
 
-                if (parameter != null)
+
+                using (MySqlConnection connection = this.connectionSQL())
                 {
-                    string[] listPara = query.Split(' ');
-                    int i = 0;
-                    foreach (string item in listPara)
+                    MySqlCommand command = new MySqlCommand(query, connection);
+
+                    if (parameter != null)
                     {
-                        if (item.Contains('@'))
+                        string[] listPara = query.Split(' ');
+                        int i = 0;
+                        foreach (string item in listPara)
                         {
-                            command.Parameters.AddWithValue(item, parameter[i]);
-                            i++;
+                            if (item.Contains('@'))
+                            {
+                                command.Parameters.AddWithValue(item, parameter[i]);
+                                i++;
+                            }
                         }
                     }
+
+                    data = command.ExecuteScalar();
+
+                    connection.Close();
                 }
+                return data;
 
-                data = command.ExecuteScalar();
-
-                connection.Close();
             }
-            return data;
 
-        }
-
-        public DataTable ExecuteQuery(string storeProcedure, Dictionary<string, Object> map)
-        {
-            DataTable data = new DataTable();
-
-
-            //tạo kết nối tới database
-            // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
-            using (MySqlConnection connection = this.connectionSQL())
+            public DataTable ExecuteQuery(string storeProcedure, Dictionary<string, Object> map)
             {
-                // chạy câu thực thi câu truy vấn query trên data connection
-                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
-                cmd.CommandType = CommandType.StoredProcedure;
-                foreach (var key in map.Keys)
+                DataTable data = new DataTable();
+
+
+                //tạo kết nối tới database
+                // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
+                using (MySqlConnection connection = this.connectionSQL())
                 {
-                    cmd.Parameters.AddWithValue(key, map[key]);
+                    // chạy câu thực thi câu truy vấn query trên data connection
+                    MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    foreach (var key in map.Keys)
+                    {
+                        cmd.Parameters.AddWithValue(key, map[key]);
+                    }
+                    MySqlDataAdapter adapter = new MySqlDataAdapter();
+                    adapter.SelectCommand = cmd;
+
+                    adapter.Fill(data);
+
+                    connection.Close();
                 }
-                MySqlDataAdapter adapter = new MySqlDataAdapter();
-                adapter.SelectCommand = cmd;
-
-                adapter.Fill(data);
-
-                connection.Close();
+                return data;
             }
-            return data;
-        }
 
-        // số dòng trả ra thành công
-        public int ExecuteNonQuery(string storeProcedure, Dictionary<string, Object> map)
-        {
-            int data = 0;
-
-            using (MySqlConnection connection = this.connectionSQL())
+            // số dòng trả ra thành công
+            public int ExecuteNonQuery(string storeProcedure, Dictionary<string, Object> map)
             {
-                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+                int data = 0;
 
-                cmd.CommandType = CommandType.StoredProcedure;
-                foreach (var key in map.Keys)
+                using (MySqlConnection connection = this.connectionSQL())
                 {
-                    cmd.Parameters.AddWithValue(key, map[key]);
+                    MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    foreach (var key in map.Keys)
+                    {
+                        cmd.Parameters.AddWithValue(key, map[key]);
+                    }
+
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+
+                    data = cmd.ExecuteNonQuery(); // trả ra số dòng thành công
+
+                    connection.Close();
                 }
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-
-                data = cmd.ExecuteNonQuery(); // trả ra số dòng thành công
-
-                connection.Close();
+                return data;
             }
-            return data;
-        }
 
-        // đếm số lượng trả ra
-        public object ExecuteScalar(string storeProcedure, Dictionary<string, Object> map)
-        {
-            object data = 0;
-
-
-            using (MySqlConnection connection = this.connectionSQL())
+            // đếm số lượng trả ra
+            public object ExecuteScalar(string storeProcedure, Dictionary<string, Object> map)
             {
-                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
-                cmd.CommandType = CommandType.StoredProcedure;
+                object data = 0;
 
-                foreach (var key in map.Keys)
+
+                using (MySqlConnection connection = this.connectionSQL())
                 {
-                    cmd.Parameters.AddWithValue(key, map[key]);
+                    MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    foreach (var key in map.Keys)
+                    {
+                        cmd.Parameters.AddWithValue(key, map[key]);
+                    }
+
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+
+
+                    data = cmd.ExecuteScalar();
+
+                    connection.Close();
                 }
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-
-
-                data = cmd.ExecuteScalar();
-
-                connection.Close();
+                return data;
             }
-            return data;
         }
     }
-}
