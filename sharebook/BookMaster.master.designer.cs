@@ -11,25 +11,34 @@ namespace sharebook
 {
 
 
-    public partial class Category
+    public partial class BookMaster
     {
 
         /// <summary>
-        /// message control.
+        /// headerBook control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl message;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder headerBook;
 
         /// <summary>
-        /// books control.
+        /// categories control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListView books;
+        protected global::System.Web.UI.WebControls.ListView categories;
+
+        /// <summary>
+        /// MainContentBook control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContentBook;
     }
 }

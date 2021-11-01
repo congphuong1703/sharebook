@@ -28,16 +28,13 @@ namespace sharebook
                   "left join tbl_comment as c on b.book_id = c.book_id join tbl_book_category as bc on " +
                   "bc.book_id = b.book_id join tbl_categories as ca on bc.categoty_id = ca.category_id where ca.category_id = " + parameter + " group by b.book_id";
             }
-            string queryCategory = "select * from tbl_categories";
-            DataTable categoryDataTable = DataProvider.getInstance.ExecuteQuery(queryCategory);
             DataTable dataTable = DataProvider.getInstance.ExecuteQuery(query);
             /*  for (int i = 0; i < dataTable.Rows.Count; i++)
               {
                   string queryTag = "select t.name from tbl_tag as t join tbl_book_tag as bt on t.tag_id = bt.tag_id join tbl_book as b on bt.book_id = b.book_id where bt.book_id=" + dataTable.Rows[i]["book_id"];
                   DataTable dataTableTag = DataProvider.getInstance.ExecuteQuery(query);
               }*/
-            categories.DataSource = categoryDataTable;
-            categories.DataBind();
+        
             books.DataSource = dataTable;
             books.DataBind();
         }

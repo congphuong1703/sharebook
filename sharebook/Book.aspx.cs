@@ -11,7 +11,11 @@ namespace sharebook
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                string parameter = Request.QueryString["book_id"];
 
+            }
         }
     }
 }
