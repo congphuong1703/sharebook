@@ -45,7 +45,9 @@ namespace sharebook
 
         private MySqlConnection connectionSQL()
         {
+                
             string constr = ConfigurationManager.ConnectionStrings["connectSQL"].ToString();
+
             conn = new MySqlConnection(constr);
             conn.Open();
 
