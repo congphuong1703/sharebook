@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,16 +20,16 @@ namespace sharebook
         protected void forgetPasswordBtn_Click(object sender, EventArgs e)
         {
             string email = txtEmail.Text;
-            MySqlConnection conn;
+            SqlConnection conn;
             using (conn = DataProvider.getInstance.connectionSQL())
             {
-                MySqlCommand cmd;
-                using (cmd = new MySqlCommand("isExistAccount", conn))
+                SqlCommand cmd;
+                using (cmd = new SqlCommand("isExistAccount", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@p_email", email);
 
-                    MySqlDataReader rdr = cmd.ExecuteReader();
+                    SqlDataReader rdr = cmd.ExecuteReader();
                     if (!rdr.HasRows)
                     {
                         errorNotify.Text = "Không tồn tại email";

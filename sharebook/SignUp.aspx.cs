@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+﻿using System.Data.SqlClient;
 using System;
 using System.Configuration;
 using System.Data;
@@ -8,7 +8,7 @@ namespace sharebook
 
     public partial class SignUp : System.Web.UI.Page
     {
-        MySqlCommand cmd;
+        SqlCommand cmd;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -16,7 +16,7 @@ namespace sharebook
 
         protected void signUp_Click(object sender, EventArgs e)
         {
-            MySqlConnection conn;
+            SqlConnection conn;
             string email = txtEmail.Text;
             string password = txtPassword.Text;
             string name = txtName.Text;
@@ -28,15 +28,15 @@ namespace sharebook
             }
             using (conn = DataProvider.getInstance.connectionSQL())
             {
-                using (cmd = new MySqlCommand("isExistAccount", conn))
+                using (cmd = new SqlCommand("isExistAccount", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@email", email);
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    cmd.Parameters.AddWithValue("@p_email", email);
+                    SqlDataReader reader = cmd.ExecuteReader();
                     if (!reader.HasRows)
                     {
                         reader.Close();
-                        using (cmd = new MySqlCommand("createNewAccount", conn))
+                        using (cmd = new SqlCommand("createNewAccount", conn))
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@p_email", email);
@@ -44,10 +44,10 @@ namespace sharebook
                             cmd.Parameters.AddWithValue("@p_role", 1);
                             cmd.Parameters.AddWithValue("@p_name", name);
 
-                            MySqlDataReader rdr = cmd.ExecuteReader();
-                            if (rdr.HasRows)
+                            SqlDataReader rdr = cmd.ExecuteReader();
+                            if (rdr.RecordsAffected > 0)
                             {
-                                Response.Write("<script language='javascript' type='text/javascript'>window.location.href = 'https://gmail.com'</script>");
+                                Response.Redirect("SignIn.aspx");
                             }
                             else
                             {

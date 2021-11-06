@@ -1,0 +1,60 @@
+﻿body {
+}
+
+.pil-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.pil-placeholder, .pil-tiny-img {
+    max-width: 100%;
+    height: auto;
+    align-self: flex-start;
+}
+
+.pil-placeholder {
+    max-height: 75vh;
+}
+
+.pil-tiny-wrapper.pil-loaded {
+    opacity: 0;
+}
+
+.pil-tiny-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity .4s ease-in;
+}
+
+.pil-tiny-img {
+    -webkit-filter: blur(8px);
+    filter: blur(8px);
+    transform: scale(1.1);
+}
+
+.pil-original-wrapper.pil-loaded {
+    opacity: 1;
+}
+
+.pil-original-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    transition: opacity .4s ease-out;
+    opacity: 0;
+}
+
+.pil-original-img {
+    max-width: 100%;
+    height: auto;
+    align-self: flex-start;
+}
+
+img, svg {
+    vertical-align: middle;
+}
