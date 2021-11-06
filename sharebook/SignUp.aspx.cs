@@ -31,7 +31,7 @@ namespace sharebook
                 using (cmd = new MySqlCommand("isExistAccount", conn))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@p_email", email);
                     MySqlDataReader reader = cmd.ExecuteReader();
                     if (!reader.HasRows)
                     {
@@ -45,9 +45,9 @@ namespace sharebook
                             cmd.Parameters.AddWithValue("@p_name", name);
 
                             MySqlDataReader rdr = cmd.ExecuteReader();
-                            if (rdr.HasRows)
+                            if (rdr.RecordsAffected > 0)
                             {
-                                Response.Write("<script language='javascript' type='text/javascript'>window.location.href = 'https://gmail.com'</script>");
+                                Response.Redirect("SignIn.aspx");
                             }
                             else
                             {

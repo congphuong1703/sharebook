@@ -109,8 +109,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Book.aspx" />
+    <Content Include="BookDetails.aspx" />
     <Content Include="Category.aspx" />
     <Content Include="Content\book.css" />
+    <Content Include="Content\BookDetail.css" />
     <Content Include="Content\BookMaster.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -300,6 +302,13 @@
     </Compile>
     <Compile Include="Book.aspx.designer.cs">
       <DependentUpon>Book.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BookDetails.aspx.cs">
+      <DependentUpon>BookDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BookDetails.aspx.designer.cs">
+      <DependentUpon>BookDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="BookMaster.master.cs">
       <DependentUpon>BookMaster.master</DependentUpon>

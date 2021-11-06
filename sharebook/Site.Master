@@ -28,8 +28,8 @@
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="Post.aspx">Đăng Sách</a></li>
                     <li class="nav-item mx-0 mx-lg-1" style="margin: auto;">
                         <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm kiếm</button>
+                            <input class="form-control mr-sm-2" type="search" runnat="server" id="searchBookInput" placeholder="Tìm kiếm" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" runnat="server" id="searchBookBtn" type="button">Tìm kiếm</button>
                         </form>
                     </li>
                 </ul>
@@ -40,10 +40,12 @@
         </div>
     </nav>
     <main>
-        <div class="main-card">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
+        <form runnat="server">
+            <div class="main-card">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </form>
     </main>
     <%--<footer class="footer mt-5">
         <div class="container">

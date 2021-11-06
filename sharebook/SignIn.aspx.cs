@@ -17,7 +17,7 @@ namespace sharebook
         protected void logginBtn_Click(object sender, EventArgs e)
         {
             MySqlConnection conn = this.connectionSQL();
-            queryStr = "SELECT * FROM tbl_user WHERE email = '" + email.Text + "' and password = '" + password.Text + "' and verify = 1" ;
+            queryStr = "SELECT * FROM tbl_user WHERE email = '" + email.Text + "' and password = '" + password.Text;
             cmd = new MySqlCommand(queryStr, conn);
             MySqlDataReader reader = cmd.ExecuteReader();
             Users user = new Users();

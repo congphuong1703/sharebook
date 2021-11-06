@@ -243,3 +243,27 @@ a.link {
         padding: 1rem 2rem;
     }
 }
+
+.pil-original-wrapper.pil-loaded {
+    opacity: 1;
+}
+
+.pil-original-wrapper {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    transition: opacity .4s ease-out;
+    opacity: 0;
+}
+.pil-original-img {
+    max-width: 100%;
+    height: auto;
+    align-self: flex-start;
+}
+.pil-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+    overflow: hidden;
+}
