@@ -15,7 +15,7 @@ namespace sharebook
         private void LoadBookSource(string parameter)
         {
             string query = "";
-            if (String.IsNullOrEmpty(parameter) || parameter.Equals("1"))
+            if (String.IsNullOrEmpty(parameter) || parameter.Equals("Mới nhất"))
                 query = "select b.book_id, b.name,b.thumbnail,b.description,DATE_FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
                     "count(c.comment_id) as comment ,count(f.favourite_id) as favourite,u.user_id,u.name as fullname from tbl_book as b " +
                     "join tbl_user as u on b.user_id = u.user_id left join tbl_favourite as f on b.book_id = f.book_id " +
@@ -23,20 +23,14 @@ namespace sharebook
             else
             {
                 query = "select b.book_id, b.name,b.thumbnail,b.description,DATE_FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
-                  "count(c.comment_id) as comment ,count(f.favourite_id) as favourite,u.name as fullname from tbl_book as b " +
+                  "count(c.comment_id) as comment ,count(f.favourite_id) as favourite,u.user_id,u.name as fullname from tbl_book as b " +
                   "join tbl_user as u on b.user_id = u.user_id left join tbl_favourite as f on b.book_id = f.book_id " +
                   "left join tbl_comment as c on b.book_id = c.book_id join tbl_book_category as bc on " +
                   "bc.book_id = b.book_id join tbl_categories as ca on bc.categoty_id = ca.category_id where ca.category_id = " + parameter + " group by b.book_id";
             }
             DataTable dataTable = DataProvider.getInstance.ExecuteQuery(query);
-            /*  for (int i = 0; i < dataTable.Rows.Count; i++)
-              {
-                  string queryTag = "select t.name from tbl_tag as t join tbl_book_tag as bt on t.tag_id = bt.tag_id join tbl_book as b on bt.book_id = b.book_id where bt.book_id=" + dataTable.Rows[i]["book_id"];
-                  DataTable dataTableTag = DataProvider.getInstance.ExecuteQuery(query);
-              }*/
-        
-            books.DataSource = dataTable;
-            books.DataBind();
+            RepeaterBooks.DataSource = dataTable;
+            RepeaterBooks.DataBind();
         }
         protected virtual void SaveFavourite_Click(Object sender, EventArgs e)
         {
@@ -69,27 +63,28 @@ namespace sharebook
             }
         }
 
-        /*
-                protected void OnItemDataBound(object sender, ListViewItemEventArgs e)
-                {
-                    ListView books = (ListView)e.Item.FindControl("books");
-                    if (e.Item.ItemType == ListViewItemType.DataItem)
-                    {
-                        foreach (var item in books.Items)
-                        {
-                            // finally, recommendedProducts for each childmenu-item within the currently processed childmenu is accessible
-                            var tags = item.FindControl("tags") as ListView;
-                            int i = (int)tags.DataKeys[CommentItem.DisplayIndex]["Id"];
-                            recommendedProducts3.DataSource = new[] { "Best" };
-                            recommendedProducts3.DataBind();
-                        }
-                    }
-                }*/
+
+        protected void RepeaterBooksItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                var hdfBookID = (HiddenField)e.Item.FindControl("hdfBookID");
+
+                Repeater RepeaterBookTags = (Repeater)(e.Item.FindControl("RepeaterBookTags"));
+                string storeProcedureGetTags = "bookTagsDetails";
+                Dictionary<string, object> map = new Dictionary<string, object>();
+                map.Add("bookId", Convert.ToInt32(hdfBookID.Value));
+                DataTable dataTable = DataProvider.getInstance.ExecuteQuery(storeProcedureGetTags, map);
+
+                RepeaterBookTags.DataSource = dataTable;
+                RepeaterBookTags.DataBind();
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                var parameter = Request.QueryString["category_id"];
+                var parameter = Request.QueryString["name"];
                 LoadBookSource(parameter);
             }
         }

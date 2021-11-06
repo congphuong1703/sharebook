@@ -11,9 +11,10 @@
             </h6>
         </div>
         <span runat="server" id="message"></span>
-        <asp:ListView ID="books" runat="server">
+        <asp:Repeater ID="RepeaterBooks" runat="server" OnItemDataBound="RepeaterBooksItemDataBound">
             <ItemTemplate>
                 <div class="post-feed-item">
+                <asp:HiddenField ID="hdfBookID" runat="server" Value='<%#Eval("book_id")%>' />
                     <a href="/User?user_id=<%#Eval("user_id") %>" class="d-flex mr-05">
                         <img src="https://images.viblo.asia/avatar/837c8044-f5b1-4e61-bf37-941100086d5f.jpg" srcset="https://images.viblo.asia/avatar-retina/837c8044-f5b1-4e61-bf37-941100086d5f.jpg 2x" alt="Avatar" class="avatar avatar--md" data-v-5e990434=""></a>
                     <div class="post-feed-item__info">
@@ -43,12 +44,12 @@
                         <div class="post-title--inline">
                             <h3 class="word-break mr-05"><a href="/Book?book_id=<%#Eval("book_id") %>" class="link"><%#Eval("name") %></a></h3>
                             <div class="tags" data-v-190ce5c0="">
-                                <asp:ListView ID="tags" runat="server">
+                                <asp:Repeater ID="RepeaterBookTags" runat="server">
                                     <ItemTemplate>
-                                        <a href="/tags/ngon-ngu-lap-trinh" class="el-tag tag el-tag--info el-tag--mini" data-v-1ebc36b8="" data-v-190ce5c0="">ngôn ngữ lập trình
+                                        <a href="#" class="el-tag tag el-tag--info el-tag--mini" data-v-1ebc36b8="" data-v-190ce5c0=""><%#Eval("name") %>
                                         </a>
                                     </ItemTemplate>
-                                </asp:ListView>
+                                </asp:Repeater>
                             </div>
                         </div>
                         <!---->
@@ -76,7 +77,7 @@
                     </div>
                 </div>
             </ItemTemplate>
-        </asp:ListView>
+        </asp:Repeater>
     </div>
 
 </asp:Content>

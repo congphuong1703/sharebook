@@ -1,2 +1,26 @@
-﻿body {
+﻿
+.avatar[data-v-5e990434] {
+    display: block;
+    height: auto;
+    margin: auto;
+    cursor: pointer;
+    border-radius: 15px;
+    height: 170px;
+    width: auto;
+}
+
+.avatar {
+    cursor: pointer;
+    width: 37px;
+    height: 37px;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.btn-process {
+    display: flex;
+    justify-content: space-around;
 }
