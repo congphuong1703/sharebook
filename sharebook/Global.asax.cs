@@ -17,5 +17,11 @@ namespace sharebook
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            Session["login"] = false;
+            Session["admin"] = false;
+        }
     }
 }

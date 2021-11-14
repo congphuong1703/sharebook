@@ -52,7 +52,7 @@ namespace sharebook
             }
             return _dataTable;
         }
-
+            // somthing change here
             public DataTable ExecuteQuery(string query, object[] parameter = null)
             {
                   DataTable data = new DataTable();

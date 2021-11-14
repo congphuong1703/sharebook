@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace sharebook {
-    
-    
-    public partial class SiteMaster {
-        
+namespace sharebook
+{
+
+
+    public partial class SiteMaster
+    {
+
         /// <summary>
         /// head control.
         /// </summary>
@@ -20,7 +22,25 @@ namespace sharebook {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
-        
+
+        /// <summary>
+        /// loginserver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loginserver;
+
+        /// <summary>
+        /// form1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+
         /// <summary>
         /// MainContent control.
         /// </summary>

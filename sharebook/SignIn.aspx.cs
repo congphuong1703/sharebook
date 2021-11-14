@@ -17,12 +17,13 @@ namespace sharebook
         protected void logginBtn_Click(object sender, EventArgs e)
         {
             SqlConnection conn = this.connectionSQL();
-            queryStr = "SELECT * FROM users WHERE email = '" + email.Text + "' and password = '" + password.Text + "' and verify = 1" ;
+            queryStr = "SELECT * FROM tbl_user WHERE email = '" + email.Text + "' and password = '" + password.Text + "' and verify = 1" ;
             cmd = new SqlCommand(queryStr, conn);
             SqlDataReader reader = cmd.ExecuteReader();
             Users user = new Users();
             while (reader.HasRows && reader.Read())
             {
+                user.Id = (int) reader["Id"];
                 user.Email = reader.GetString(reader.GetOrdinal("email"));
                 user.Name = reader.GetString(reader.GetOrdinal("name"));
                 user.Status = (bool) reader["status"];
@@ -32,6 +33,12 @@ namespace sharebook
             if (reader.HasRows)
             {
                 Session["user"] = user;
+                Session["login"] = true;
+                if(user.Role == 2)
+                {
+                    Session["admin"] = true;
+                    Response.Redirect("Admin.aspx");
+                }
                 Response.Redirect("Home.aspx", false);
             }
             else

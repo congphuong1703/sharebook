@@ -16,13 +16,13 @@ namespace sharebook
         {
             string query = "";
             if (String.IsNullOrEmpty(parameter) || parameter.Equals("Mới nhất"))
-                query = "select b.book_id, b.name,b.thumbnail,b.description,DATE_FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
+                query = "select b.book_id, b.name,b.thumbnail,b.description,FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
                     "count(c.comment_id) as comment ,count(f.favourite_id) as favourite,u.user_id,u.name as fullname from tbl_book as b " +
                     "join tbl_user as u on b.user_id = u.user_id left join tbl_favourite as f on b.book_id = f.book_id " +
                     "left join tbl_comment as c on b.book_id = c.book_id group by b.book_id";
             else
             {
-                query = "select b.book_id, b.name,b.thumbnail,b.description,DATE_FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
+                query = "select b.book_id, b.name,b.thumbnail,b.description,FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
                   "count(c.comment_id) as comment ,count(f.favourite_id) as favourite,u.user_id,u.name as fullname from tbl_book as b " +
                   "join tbl_user as u on b.user_id = u.user_id left join tbl_favourite as f on b.book_id = f.book_id " +
                   "left join tbl_comment as c on b.book_id = c.book_id join tbl_book_category as bc on " +
