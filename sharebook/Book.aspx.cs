@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -64,16 +65,59 @@ namespace sharebook
         }
         protected void Download_Click(object sender, EventArgs e)
         {
-            //Get the reference of the clicked button.
-            LinkButton button = (sender as LinkButton);
+            try
+            {
+                //Get the reference of the clicked button.
+                LinkButton button = (sender as LinkButton);
 
-            //Get the command argument
-            string commandArgument = button.CommandArgument.Replace("Images/", "");
+                //Get the command argument
+                string commandArgument = button.CommandArgument.Replace("Images/", "");
 
-            Response.ContentType = ContentType;
-            Response.AppendHeader("Content-Disposition", "attachment; filename=" + "Images\\" + Path.GetFileName(commandArgument));
-            Response.WriteFile("Images\\" + commandArgument);
-            Response.End();
+                Response.ContentType = ContentType;
+                Response.AppendHeader("Content-Disposition", "attachment; filename=" + "Images\\" + Path.GetFileName(commandArgument));
+                Response.WriteFile("Images\\" + commandArgument);
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        protected void Comment_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                UserModel user = (UserModel)Session["user"];
+                if (user == null)
+                    Response.Redirect("SignIn.aspx");
+                string addComment = "addComment";
+
+                foreach (RepeaterItem rptItem in RepeaterBookDetail.Items)
+                {
+                    var hdfBookID = (HiddenField)rptItem.FindControl("hdfBookID");
+                    TextBox commentContent = (TextBox)rptItem.FindControl("commentContent");
+                    if (!String.IsNullOrEmpty(commentContent.Text))
+                    {
+                        Dictionary<string, object> map = new Dictionary<string, object> { };
+                        map.Add("@pUserId", user.id);
+                        map.Add("@pBookId", hdfBookID.Value);
+                        map.Add("@pComment", commentContent.Text);
+                        map.Add("@pCreatedAt", DateTime.Now);
+                        MySqlDataReader dr = DataProvider.getInstance.ExecuteQueryReader(addComment, map);
+                        if (dr.RecordsAffected > 0)
+                            Response.Redirect(Request.RawUrl);
+                        else
+                        {
+                            //thong bao
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         protected void Favorite_Click(object sender, EventArgs e)

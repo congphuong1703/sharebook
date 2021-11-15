@@ -7,44 +7,33 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using sharebook.model;
 using System.Configuration;
+using System.Data;
 
 namespace sharebook
 {
     public partial class User : System.Web.UI.Page
     {
-        SqlConnection conn;
-        SqlCommand cmd;
-        String query;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((bool)Session["login"] == false)
+
+            var userId = Request.QueryString["user_id"];
+            string storeProcedure = "getInfoUser";
+            Dictionary<string, object> map = new Dictionary<string, object> { };
+            UserModel userModel = (UserModel)Session["user"];
+            if (String.IsNullOrEmpty(userId) && userModel != null)
             {
-                Response.Write("<script>alert('Bạn chưa đăng nhập !');</script>");
+                map.Add("@pUserId", userModel.id);
+            }
+            else if (!String.IsNullOrEmpty(userId))
+            {
+                map.Add("@pUserId", userId);
+            }
+            else
+            {
                 Response.Redirect("SignIn.aspx");
             }
-            SqlConnection conn = this.connectionSQL();
-            Users user = (Users) Session["user"];
-            query = "Select * from tbl_user WHERE Id = " + user.Id;
-            cmd = new SqlCommand(query, conn);
-            SqlDataReader reader = cmd.ExecuteReader();
+            DataTable dt = DataProvider.getInstance.ExecuteQuery(storeProcedure, map);
 
-            while(reader.HasRows && reader.Read())
-            {
-                profileName.InnerHtml = Convert.ToString(reader["name"]);
-                profileEmail.InnerHtml = "Email: " + Convert.ToString(reader["email"]);
-            }
-
-        }
-
-        private SqlConnection connectionSQL()
-        {
-
-            string constr = ConfigurationManager.ConnectionStrings["connectSQL"].ToString();
-
-            conn = new SqlConnection(constr);
-            conn.Open();
-
-            return conn;
         }
     }
 }

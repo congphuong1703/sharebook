@@ -15,21 +15,12 @@ namespace sharebook
     {
 
         /// <summary>
-        /// profileName control.
+        /// RepeaterProfile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl profileName;
-
-        /// <summary>
-        /// profileEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl profileEmail;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterProfile;
     }
 }

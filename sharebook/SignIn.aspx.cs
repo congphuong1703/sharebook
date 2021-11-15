@@ -9,9 +9,6 @@ namespace sharebook
 {
     public partial class SignIn : System.Web.UI.Page
     {
-        SqlConnection conn;
-        SqlCommand cmd;
-        String queryStr;
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -34,14 +31,7 @@ namespace sharebook
                     role = dataTable.Rows[0][3] == null ? "" : dataTable.Rows[0][3].ToString()
                 };
                 Session["user"] = user;
-                Session["login"] = true;
-                if(user.Role == 2)
-                {
-                    Session["admin"] = true;
-                    Response.Redirect("Admin.aspx");
-                }
-                Response.Redirect("Home.aspx", false);
-
+                Response.Redirect("Home.aspx");
             }
             else
             {
@@ -49,16 +39,6 @@ namespace sharebook
             }
         }
 
-        private SqlConnection connectionSQL()
-        {
-                
-            string constr = ConfigurationManager.ConnectionStrings["connectSQL"].ToString();
-
-            conn = new SqlConnection(constr);
-            conn.Open();
-
-            return conn;
-        }
 
     }
 }

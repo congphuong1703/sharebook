@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace sharebook
 {
-    public partial class Admin1 : System.Web.UI.MasterPage
+    public partial class ManageUsers : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

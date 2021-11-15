@@ -1,4 +1,5 @@
-﻿using sharebook.model;
+﻿using MySql.Data.MySqlClient;
+using sharebook.model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace sharebook
         {
             string query = "getCategoriesByNameAndTag";
             Dictionary<string, object> map = new Dictionary<string, object> { };
-            if ((String.IsNullOrEmpty(parameter) || parameter.Equals("Mới nhất")) && String.IsNullOrEmpty(tagName))
+            if ((String.IsNullOrEmpty(categoryName) || categoryName.Equals("Mới nhất")) && String.IsNullOrEmpty(tagName) && String.IsNullOrEmpty(parameter))
             {
                 map.Add("@pCategoryName", "");
                 map.Add("@pTagName", "");
@@ -54,24 +55,19 @@ namespace sharebook
             Users userLogged = (Users)Session["user"];
             if (userLogged != null)
             {
-                string query = "select * from tbl_favourite where book_id = " + btn.CommandArgument.ToString() + " and user_id =" + userLogged.Id;
-                int existFavourite = DataProvider.getInstance.ExecuteNonQuery(query);
-                string procedure = "";
-                if (existFavourite > 0)
-                {
-                    procedure = "removeNewFavourite";
-                    message.InnerHtml = Server.HtmlEncode("Đã lưu trữ thành công");
-                }
-                else
-                {
-                    procedure = "addNewFavourite";
-                    message.InnerHtml = Server.HtmlEncode("Đã xóa lưu trữ");
-                }
-
+                string procedure = "addNewFavourite";
                 Dictionary<string, Object> map = new Dictionary<string, object>();
                 map.Add("@userId", userLogged.Id);
                 map.Add("@bookId", btn.CommandArgument.ToString());
-                int result = DataProvider.getInstance.ExecuteNonQuery(procedure, map);
+                MySqlDataReader result = DataProvider.getInstance.ExecuteQueryReader(procedure, map);
+                if(result.RecordsAffected > 0)
+                {
+                    //thong bao
+                }
+                else
+                {
+                    //thong bao
+                }
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -20,206 +21,203 @@ namespace sharebook
 
         private DataProvider() { }
 
-        public SqlConnection connectionSQL()
+        public MySqlConnection connectionSQL()
         {
             string constr = ConfigurationManager.ConnectionStrings["connectSQL"].ToString();
-            SqlConnection conn = new SqlConnection(constr);
+            MySqlConnection conn = new MySqlConnection(constr);
             conn.Open();
 
             return conn;
         }
 
-        public DataTable SelectAllFrom(string query)
+        // somthing change here
+        public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
-            var _dataTable = new DataTable();
-            try
+            DataTable data = new DataTable();
+
+            using (MySqlConnection connection = this.connectionSQL())
             {
-                var _conn = this.connectionSQL();
-                var _cmd = new SqlCommand
+
+                MySqlCommand command = new MySqlCommand(query, connection);
+
+                if (parameter != null)
                 {
-                    Connection = _conn,
-                    CommandText = query
-                };
-                _cmd.ExecuteNonQuery();
+                    string[] listPara = query.Split(' ');
+                    int i = 0;
+                    foreach (string item in listPara)
+                    {
+                        if (item.Contains('@'))
+                        {
+                            command.Parameters.AddWithValue(item, parameter[i]);
+                            i++;
+                        }
+                    }
+                }
 
-                var _da = new SqlDataAdapter(_cmd);
-                _da.Fill(_dataTable);
-                _conn.Close();
-            }
-            finally
-            {
+                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
 
+                adapter.Fill(data);
+
+                connection.Close();
             }
-            return _dataTable;
+            return data;
         }
-            // somthing change here
-            public DataTable ExecuteQuery(string query, object[] parameter = null)
+
+        // số dòng trả ra thành công
+        public int ExecuteNonQuery(string query, object[] parameter = null)
+        {
+            int data = 0;
+
+            using (MySqlConnection connection = this.connectionSQL())
             {
-                  DataTable data = new DataTable();
+                MySqlCommand command = new MySqlCommand(query, connection);
 
-                using (SqlConnection connection = this.connectionSQL())
-                {         
-      
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    if (parameter != null)
+                if (parameter != null)
+                {
+                    string[] listPara = query.Split(' ');
+                    int i = 0;
+                    foreach (string item in listPara)
                     {
-                        string[] listPara = query.Split(' ');
-                        int i = 0;
-                        foreach (string item in listPara)
+                        if (item.Contains('@'))
                         {
-                            if (item.Contains('@'))
-                            {
-                                command.Parameters.AddWithValue(item, parameter[i]);
-                                i++;
-                            }
+                            command.Parameters.AddWithValue(item, parameter[i]);
+                            i++;
                         }
                     }
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
-
-                    adapter.Fill(data);
-
-                    connection.Close();
                 }
-                return data;
+
+                data = command.ExecuteNonQuery(); // trả ra số dòng thành công
+
+                connection.Close();
             }
+            return data;
+        }
 
-            // số dòng trả ra thành công
-            public int ExecuteNonQuery(string query, object[] parameter = null)
+        // đếm số lượng trả ra
+        public object ExecuteScalar(string query, object[] parameter = null)
+        {
+            object data = 0;
+
+            using (MySqlConnection connection = this.connectionSQL())
             {
-                int data = 0;
+                MySqlCommand command = new MySqlCommand(query, connection);
 
-                using (SqlConnection connection = this.connectionSQL())
+                if (parameter != null)
                 {
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    if (parameter != null)
+                    string[] listPara = query.Split(' ');
+                    int i = 0;
+                    foreach (string item in listPara)
                     {
-                        string[] listPara = query.Split(' ');
-                        int i = 0;
-                        foreach (string item in listPara)
+                        if (item.Contains('@'))
                         {
-                            if (item.Contains('@'))
-                            {
-                                command.Parameters.AddWithValue(item, parameter[i]);
-                                i++;
-                            }
+                            command.Parameters.AddWithValue(item, parameter[i]);
+                            i++;
                         }
                     }
-
-                    data = command.ExecuteNonQuery(); // trả ra số dòng thành công
-
-                    connection.Close();
                 }
-                return data;
-            }
 
-            // đếm số lượng trả ra
-            public object ExecuteScalar(string query, object[] parameter = null)
+                data = command.ExecuteScalar();
+
+                connection.Close();
+            }
+            return data;
+
+        }
+
+        public DataTable ExecuteQuery(string storeProcedure, Dictionary<string, Object> map)
+        {
+            DataTable data = new DataTable();
+
+
+            //tạo kết nối tới database
+            // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
+            using (MySqlConnection connection = this.connectionSQL())
             {
-                object data = 0;
-
-                using (SqlConnection connection = this.connectionSQL())
+                // chạy câu thực thi câu truy vấn query trên data connection
+                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                foreach (var key in map.Keys)
                 {
-                    SqlCommand command = new SqlCommand(query, connection);
-
-                    if (parameter != null)
-                    {
-                        string[] listPara = query.Split(' ');
-                        int i = 0;
-                        foreach (string item in listPara)
-                        {
-                            if (item.Contains('@'))
-                            {
-                                command.Parameters.AddWithValue(item, parameter[i]);
-                                i++;
-                            }
-                        }
-                    }
-
-                    data = command.ExecuteScalar();
-
-                    connection.Close();
+                    cmd.Parameters.AddWithValue(key, map[key]);
                 }
-                return data;
+                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                adapter.SelectCommand = cmd;
 
+                adapter.Fill(data);
+
+                connection.Close();
             }
+            return data;
+        }
+        public MySqlDataReader ExecuteQueryReader(string storeProcedure, Dictionary<string, Object> map)
+        {
 
-            public DataTable ExecuteQuery(string storeProcedure, Dictionary<string, Object> map)
+            MySqlDataReader rdr;
+            //tạo kết nối tới database
+            // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
+            using (MySqlConnection connection = this.connectionSQL())
             {
-                DataTable data = new DataTable();
-
-
-                //tạo kết nối tới database
-                // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
-                using (SqlConnection connection = this.connectionSQL())
+                // chạy câu thực thi câu truy vấn query trên data connection
+                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                foreach (var key in map.Keys)
                 {
-                    // chạy câu thực thi câu truy vấn query trên data connection
-                    SqlCommand cmd = new SqlCommand(storeProcedure, connection);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    foreach (var key in map.Keys)
-                    {
-                        cmd.Parameters.AddWithValue(key, map[key]);
-                    }
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-                    adapter.SelectCommand = cmd;
-
-                    adapter.Fill(data);
-
-                    connection.Close();
+                    cmd.Parameters.AddWithValue(key, map[key]);
                 }
-                return data;
+                rdr = cmd.ExecuteReader();
+                connection.Close();
             }
+            return rdr;
+        }
 
-            // số dòng trả ra thành công
-            public int ExecuteNonQuery(string storeProcedure, Dictionary<string, Object> map)
+        // số dòng trả ra thành công
+        public int ExecuteNonQuery(string storeProcedure, Dictionary<string, Object> map)
+        {
+            int data = 0;
+
+            using (MySqlConnection connection = this.connectionSQL())
             {
-                int data = 0;
+                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
 
-                using (SqlConnection connection = this.connectionSQL())
+                cmd.CommandType = CommandType.StoredProcedure;
+                foreach (var key in map.Keys)
                 {
-                    SqlCommand cmd = new SqlCommand(storeProcedure, connection);
-
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    foreach (var key in map.Keys)
-                    {
-                        cmd.Parameters.AddWithValue(key, map[key]);
-                    }
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-
-                    data = cmd.ExecuteNonQuery(); // trả ra số dòng thành công
-
-                    connection.Close();
+                    cmd.Parameters.AddWithValue(key, map[key]);
                 }
-                return data;
-            }
 
-            // đếm số lượng trả ra
-            public object ExecuteScalar(string storeProcedure, Dictionary<string, Object> map)
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+
+                data = cmd.ExecuteNonQuery(); // trả ra số dòng thành công
+
+                connection.Close();
+            }
+            return data;
+        }
+
+        // đếm số lượng trả ra
+        public object ExecuteScalar(string storeProcedure, Dictionary<string, Object> map)
+        {
+            object data = 0;
+
+
+            using (MySqlConnection connection = this.connectionSQL())
             {
-                object data = 0;
+                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-
-                using (SqlConnection connection = this.connectionSQL())
+                foreach (var key in map.Keys)
                 {
-                    SqlCommand cmd = new SqlCommand(storeProcedure, connection);
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    foreach (var key in map.Keys)
-                    {
-                        cmd.Parameters.AddWithValue(key, map[key]);
-                    }
-
-                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-
-
-                    data = cmd.ExecuteScalar();
-
-                    connection.Close();
+                    cmd.Parameters.AddWithValue(key, map[key]);
                 }
-                return data;
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+
+
+                data = cmd.ExecuteScalar();
+
+                connection.Close();
             }
+            return data;
         }
     }
+}

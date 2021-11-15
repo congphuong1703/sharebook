@@ -48,9 +48,9 @@
                                         </div>
                                         <div class="col-12">
                                             <div class="btn-process mt-5">
-                                                <asp:LinkButton class="btn btn-primary" runat="server" ID="readBook" OnClick="Read_Click" CommandArgument='<%# Eval("bookId") %>' >Đọc sách</asp:LinkButton>
-                                                <asp:LinkButton OnClick="Download_Click" ID="downloadBtn" runat="server" class="btn btn-primary" CommandArgument='<%# Eval("file") %>' >Tải xuống</asp:LinkButton>
-                                                <asp:LinkButton class="btn btn-primary" ID="favoriteBtn" runat="server" OnClick="Favorite_Click" CommandArgument='<%# Eval("bookId") %>' >Đọc sau</asp:LinkButton>
+                                                <asp:LinkButton class="btn btn-primary" runat="server" ID="readBook" OnClick="Read_Click" CommandArgument='<%# Eval("bookId") %>'>Đọc sách</asp:LinkButton>
+                                                <asp:LinkButton OnClick="Download_Click" ID="downloadBtn" runat="server" class="btn btn-primary" CommandArgument='<%# Eval("file") %>'>Tải xuống</asp:LinkButton>
+                                                <asp:LinkButton class="btn btn-primary" ID="favoriteBtn" runat="server" OnClick="Favorite_Click" CommandArgument='<%# Eval("bookId") %>'>Đọc sau</asp:LinkButton>
                                             </div>
                                         </div>
                                     </div>
@@ -71,14 +71,18 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
+                                        <asp:TextBox ID="commentContent" type="text" runat="server" name="commentContent" placeholder="Nhập bình luận...." />
+                                        <asp:Button ID="submitComment" class="btn btn-primary" Text="Bình luận" OnClick="Comment_Click" runat="server" />
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </ItemTemplate>
         </asp:Repeater>
     </div>
+    <script>
+
+</script>
 </asp:Content>

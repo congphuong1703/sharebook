@@ -25,14 +25,20 @@ namespace sharebook
 
         /// <summary>
         /// loginserver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl loginserver;
+
+        /// <summary>
         /// searchBookInput control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        /// <summary>
-        /// form1 control.
         protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl searchBookInput;
 
         /// <summary>
@@ -69,7 +75,7 @@ namespace sharebook
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button logoutBtn;
+        protected global::System.Web.UI.WebControls.LinkButton logoutBtn;
 
         /// <summary>
         /// MainContent control.
