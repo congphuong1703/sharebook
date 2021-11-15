@@ -46,7 +46,7 @@
                             <div class="tags" data-v-190ce5c0="">
                                 <asp:Repeater ID="RepeaterBookTags" runat="server">
                                     <ItemTemplate>
-                                        <a href="#" class="el-tag tag el-tag--info el-tag--mini" data-v-1ebc36b8="" data-v-190ce5c0=""><%#Eval("name") %>
+                                        <a href="Category.aspx?tag=<%#Eval("name") %>" class="el-tag tag el-tag--info el-tag--mini" data-v-1ebc36b8="" data-v-190ce5c0=""><%#Eval("name") %>
                                         </a>
                                     </ItemTemplate>
                                 </asp:Repeater>
@@ -68,9 +68,9 @@
                             </div>
                             <div class="points">
                                 <div class="carets">
-                                    <button id="saveFavourite" runat="server" commandargument='<%#Eval("book_id")%>' type="button" href="#" class="btn btn-outline-primary" onclick="SaveFavourite_Click" data-bs-toggle="tooltip" data-bs-placement="top" title="Lưu trữ">
+                                    <asp:LinkButton ID="saveFavourite" runat="server" CommandArgument='<%#Eval("book_id")%>' type="button" class="btn btn-outline-primary" OnClick="Favorite_Click" data-bs-toggle="tooltip" data-bs-placement="top" title="Lưu trữ">
                                         <i class="fa fa-save"></i>
-                                    </button>
+                                    </asp:LinkButton>
                                 </div>
                             </div>
                         </div>

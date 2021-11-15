@@ -12,26 +12,42 @@ namespace sharebook
 {
     public partial class Category : System.Web.UI.Page
     {
-        private void LoadBookSource(string parameter)
+        private void LoadBookSource(string categoryName, string parameter, string tagName)
         {
-            string query = "";
-            if (String.IsNullOrEmpty(parameter) || parameter.Equals("Mới nhất"))
-                query = "select b.book_id, b.name,b.thumbnail,b.description,FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
-                    "count(c.comment_id) as comment ,count(f.favourite_id) as favourite,u.user_id,u.name as fullname from tbl_book as b " +
-                    "join tbl_user as u on b.user_id = u.user_id left join tbl_favourite as f on b.book_id = f.book_id " +
-                    "left join tbl_comment as c on b.book_id = c.book_id group by b.book_id";
+            string query = "getCategoriesByNameAndTag";
+            Dictionary<string, object> map = new Dictionary<string, object> { };
+            if ((String.IsNullOrEmpty(parameter) || parameter.Equals("Mới nhất")) && String.IsNullOrEmpty(tagName))
+            {
+                map.Add("@pCategoryName", "");
+                map.Add("@pTagName", "");
+                map.Add("@pBookName", "");
+
+            }
+            else if (!String.IsNullOrEmpty(categoryName))
+            {
+                map.Add("@pCategoryName", categoryName);
+                map.Add("@pTagName", "");
+                map.Add("@pBookName", "");
+            }
+            else if (!String.IsNullOrEmpty(tagName))
+            {
+                map.Add("@pCategoryName", "");
+                map.Add("@pTagName", tagName);
+                map.Add("@pBookName", "");
+            }
             else
             {
-                query = "select b.book_id, b.name,b.thumbnail,b.description,FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
-                  "count(c.comment_id) as comment ,count(f.favourite_id) as favourite,u.user_id,u.name as fullname from tbl_book as b " +
-                  "join tbl_user as u on b.user_id = u.user_id left join tbl_favourite as f on b.book_id = f.book_id " +
-                  "left join tbl_comment as c on b.book_id = c.book_id join tbl_book_category as bc on " +
-                  "bc.book_id = b.book_id join tbl_categories as ca on bc.categoty_id = ca.category_id where ca.category_id = " + parameter + " group by b.book_id";
+                map.Add("@pCategoryName", "");
+                map.Add("@pTagName", "");
+                map.Add("@pBookName", parameter);
             }
-            DataTable dataTable = DataProvider.getInstance.ExecuteQuery(query);
+
+            DataTable dataTable = DataProvider.getInstance.ExecuteQuery(query, map);
             RepeaterBooks.DataSource = dataTable;
             RepeaterBooks.DataBind();
         }
+
+
         protected virtual void SaveFavourite_Click(Object sender, EventArgs e)
         {
             Button btn = (Button)sender;
@@ -84,9 +100,38 @@ namespace sharebook
         {
             if (!IsPostBack)
             {
-                var parameter = Request.QueryString["name"];
-                LoadBookSource(parameter);
+                var category = Request.QueryString["name"];
+                var tag = Request.QueryString["tag"];
+                var parameter = Request.QueryString["book"];
+                LoadBookSource(category, parameter, tag);
             }
+        }
+
+
+        protected void Favorite_Click(object sender, EventArgs e)
+        {
+            UserModel user = (UserModel)Session["user"];
+            if (user == null)
+                Response.Redirect("SignIn.aspx");
+            //Get the reference of the clicked button.
+            Button button = (sender as Button);
+            string addNewFavourite = "addNewFavourite";
+            Dictionary<string, object> map = new Dictionary<string, object> { };
+            string commandArgument = button.CommandArgument;
+
+            map.Add("@userId", user.id);
+            map.Add("@bookId", commandArgument);
+            DataTable dataTable = DataProvider.getInstance.ExecuteQuery(addNewFavourite, map);
+
+            if (dataTable.Rows.Count > 0)
+            {
+                //thong bao
+            }
+            else
+            {
+                //thong bao
+            }
+
         }
     }
 }

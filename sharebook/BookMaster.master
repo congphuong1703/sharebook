@@ -42,8 +42,6 @@
             </div>
         </div>
     </div>
-    <form runat="server">
         <asp:ContentPlaceHolder ID="MainContentBook" runat="server">
         </asp:ContentPlaceHolder>
-    </form>
 </asp:Content>

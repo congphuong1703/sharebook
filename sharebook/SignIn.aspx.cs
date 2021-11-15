@@ -1,7 +1,10 @@
 ﻿using System.Data.SqlClient;
 using sharebook.model;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+
 namespace sharebook
 {
     public partial class SignIn : System.Web.UI.Page
@@ -16,22 +19,20 @@ namespace sharebook
 
         protected void logginBtn_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = this.connectionSQL();
-            queryStr = "SELECT * FROM tbl_user WHERE email = '" + email.Text + "' and password = '" + password.Text + "' and verify = 1" ;
-            cmd = new SqlCommand(queryStr, conn);
-            SqlDataReader reader = cmd.ExecuteReader();
-            Users user = new Users();
-            while (reader.HasRows && reader.Read())
+            string login = "login";
+            Dictionary<string, object> map = new Dictionary<string, object> { };
+            map.Add("@p_email", email.Text.Trim());
+            map.Add("@p_password", password.Text.Trim());
+            DataTable dataTable = DataProvider.getInstance.ExecuteQuery(login, map);
+            if (dataTable.Rows.Count > 0)
             {
-                user.Id = (int) reader["Id"];
-                user.Email = reader.GetString(reader.GetOrdinal("email"));
-                user.Name = reader.GetString(reader.GetOrdinal("name"));
-                user.Status = (bool) reader["status"];
-                user.Verify = (bool) reader["verify"];
-                user.Role = (int) reader["role"];
-            }
-            if (reader.HasRows)
-            {
+                UserModel user = new UserModel()
+                {
+                    id = (int)dataTable.Rows[0][0],
+                    name = dataTable.Rows[0][1] == null ? "" : dataTable.Rows[0][1].ToString(),
+                    email = dataTable.Rows[0][2] == null ? "" : dataTable.Rows[0][2].ToString(),
+                    role = dataTable.Rows[0][3] == null ? "" : dataTable.Rows[0][3].ToString()
+                };
                 Session["user"] = user;
                 Session["login"] = true;
                 if(user.Role == 2)
@@ -40,14 +41,12 @@ namespace sharebook
                     Response.Redirect("Admin.aspx");
                 }
                 Response.Redirect("Home.aspx", false);
+
             }
             else
             {
-                Response.Write("<script language='javascript'></script>");
+                //thong bao
             }
-
-            reader.Close();
-            conn.Close();
         }
 
         private SqlConnection connectionSQL()
