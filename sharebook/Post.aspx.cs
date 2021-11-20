@@ -12,27 +12,31 @@ namespace sharebook
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((UserModel)Session["user"] == null)
+            if (!Page.IsPostBack)
             {
-                Response.Redirect("SignIn.aspx");
-            }
-            else
-            {
-                string getAllTags = "getAllTags";
-                string getAllCategories = "getAllCategories";
+                if ((UserModel)Session["user"] == null)
+                {
+                    Response.Redirect("SignIn.aspx");
+                }
+                else
+                {
+                    string getAllTags = "getAllTags";
+                    string getAllCategories = "getAllCategories";
 
-                DataTable tagsTable = DataProvider.getInstance.ExecuteQuery(getAllTags);
-                DataTable categoriesTable = DataProvider.getInstance.ExecuteQuery(getAllCategories);
+                    DataTable tagsTable = DataProvider.getInstance.ExecuteQuery(getAllTags);
+                    DataTable categoriesTable = DataProvider.getInstance.ExecuteQuery(getAllCategories);
 
-                CategoryDropDownList.DataSource = categoriesTable;
-                CategoryDropDownList.DataTextField = "name";
-                CategoryDropDownList.DataValueField = "category_id";
-                CategoryDropDownList.DataBind();
+                    CategoryDropDownList.DataSource = categoriesTable;
+                    CategoryDropDownList.DataTextField = "name";
+                    CategoryDropDownList.DataValueField = "category_id";
+                    CategoryDropDownList.DataBind();
 
-                TagsDropDownList.DataSource = tagsTable;
-                TagsDropDownList.DataTextField = "name";
-                TagsDropDownList.DataValueField = "tag_id";
-                TagsDropDownList.DataBind();
+                    TagsDropDownList.DataSource = tagsTable;
+                    TagsDropDownList.DataTextField = "name";
+                    TagsDropDownList.DataValueField = "tag_id";
+                    TagsDropDownList.DataBind();
+
+                }
             }
         }
 
@@ -53,10 +57,11 @@ namespace sharebook
                         var extension = System.IO.Path.GetExtension(images.FileName);
                         if (extension == ".pdf")
                         {
-                            var path = Server.MapPath("Images\\");
-                            images.SaveAs(path + images.FileName);
-                            string fileName = System.IO.Path.GetFileName(images.FileName);
-                            image = "Images/" + fileName;
+                            string fileName = "Images/" + images.FileName;
+                            string filePath = MapPath(fileName);
+
+                            avatar.SaveAs(filePath);
+                            image = fileName;
                         }
                     }
                     else
@@ -68,10 +73,11 @@ namespace sharebook
                         var extension = System.IO.Path.GetExtension(avatar.FileName);
                         if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
                         {
-                            var path = Server.MapPath("Images\\");
-                            avatar.SaveAs(path + avatar.FileName);
-                            string fileName = System.IO.Path.GetFileName(avatar.FileName);
-                            ava = "Images/" + fileName;
+                            string fileName = "Images/" + avatar.FileName;
+                            string filePath = MapPath(fileName);
+
+                            avatar.SaveAs(filePath);
+                            ava = fileName;
                         }
                     }
                     else
@@ -92,19 +98,21 @@ namespace sharebook
                         int bookId = Int32.Parse(dt.Rows[0][0].ToString());
                         string addBookTag = "addBookTag";
                         string addBookCategory = "addBookCategory";
-
                         foreach (ListItem item in TagsDropDownList.Items)
                         {
-                            int tagId = Int32.Parse(item.Value);
-                            Dictionary<string, object> tagMap = new Dictionary<string, object> { };
-                            tagMap.Add("@pBookId", bookId);
-                            tagMap.Add("@pTagId", tagId);
-                            DataProvider.getInstance.ExecuteQuery(addBookTag, tagMap);
+                            if (item.Selected == true)
+                            {
+                                int tagId = Int32.Parse(item.Value);
+                                Dictionary<string, object> tagMap = new Dictionary<string, object> { };
+                                tagMap.Add("@pBookId", bookId);
+                                tagMap.Add("@pTagId", tagId);
+                                DataProvider.getInstance.ExecuteQuery(addBookTag, tagMap);
+                            }
                         }
 
                         Dictionary<string, object> categoryMap = new Dictionary<string, object> { };
                         categoryMap.Add("@pBookId", bookId);
-                        categoryMap.Add("@pCategoryId", CategoryDropDownList.SelectedValue);
+                        categoryMap.Add("@pCategoryId", CategoryDropDownList.SelectedItem.Value);
                         DataProvider.getInstance.ExecuteQuery(addBookCategory, categoryMap);
 
                         //Response.Redirect("User.aspx");

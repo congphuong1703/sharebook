@@ -11,7 +11,7 @@
     <div class="container mt-3">
         <div class="row">
             <div class="col-8">
-                <iframe width="100%" height="200%" id="Image1" runat="server" />
+                <img src="#" id="Image1" runat="server" />
             </div>
             <div class="col-4">
                 <h3>Sách liên quan</h3>

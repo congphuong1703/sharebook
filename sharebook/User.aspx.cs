@@ -33,7 +33,8 @@ namespace sharebook
                 Response.Redirect("SignIn.aspx");
             }
             DataTable dt = DataProvider.getInstance.ExecuteQuery(storeProcedure, map);
-
+            RepeaterProfile.DataSource = dt;
+            RepeaterProfile.DataBind();
         }
     }
 }

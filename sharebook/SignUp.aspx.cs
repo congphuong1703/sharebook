@@ -18,7 +18,6 @@ namespace sharebook
 
         protected void signUp_Click(object sender, EventArgs e)
         {
-            MySqlConnection conn;
             string email = txtEmail.Text;
             string password = txtPassword.Text;
             string name = txtName.Text;
@@ -40,9 +39,9 @@ namespace sharebook
             {
                 MySqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
                 map.Add("@p_email", email);
-                map.Add("@p_password", email);
-                map.Add("@p_role", email);
-                map.Add("@p_name", email);
+                map.Add("@p_password", password);
+                map.Add("@p_role", 0);
+                map.Add("@p_name", name);
                 if (rdr.RecordsAffected > 0)
                 {
                     Response.Redirect("SignIn.aspx");

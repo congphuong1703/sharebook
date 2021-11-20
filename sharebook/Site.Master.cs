@@ -20,6 +20,14 @@ namespace sharebook
             }
             else
             {
+                if (user.role == "1")
+                {
+                    manageUrl.Visible = true;
+                }
+                else
+                {
+                    manageUrl.Visible = false;
+                }
                 loginBtn.Visible = false;
                 userBtn.Visible = true;
                 userBtn.InnerText = user.name;

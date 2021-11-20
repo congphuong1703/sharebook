@@ -28,7 +28,6 @@ namespace sharebook
         protected void loadDataBookDetails(int parameter)
         {
 
-
             string getBookById = "getBookById";
             Dictionary<string, object> map = new Dictionary<string, object>();
             map.Add("bookId", parameter);

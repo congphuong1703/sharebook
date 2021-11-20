@@ -42,7 +42,6 @@
                                         </div>
                                         <div class="col-xl-2 col-md-2 d-flex justify-content-lg-end justify-content-md-end justify-content-center">
                                             <div class="follow">
-                                                <asp:LinkButton ID="edit" OnClick="Edit_Click" CommandArgument="<%#Eval("user_id") %>" class="btn btn-shadow" runat="server"><i class="la la-user-plus"></i>Sửa thông tin</asp:LinkButton>
                                             </div>
                                         </div>
                                     </div>

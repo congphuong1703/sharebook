@@ -110,7 +110,7 @@ namespace sharebook
             if (user == null)
                 Response.Redirect("SignIn.aspx");
             //Get the reference of the clicked button.
-            Button button = (sender as Button);
+            LinkButton button = (sender as LinkButton);
             string addNewFavourite = "addNewFavourite";
             Dictionary<string, object> map = new Dictionary<string, object> { };
             string commandArgument = button.CommandArgument;

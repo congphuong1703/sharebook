@@ -249,3 +249,9 @@ D:\THE STUDYING FILES\PROGRAMING\FITHOU\ASP_NET\sharebook\sharebook\obj\Debug\sh
 D:\THE STUDYING FILES\PROGRAMING\FITHOU\ASP_NET\sharebook\sharebook\obj\Debug\sharebook.csproj.CopyComplete
 D:\THE STUDYING FILES\PROGRAMING\FITHOU\ASP_NET\sharebook\sharebook\obj\Debug\sharebook.dll
 D:\THE STUDYING FILES\PROGRAMING\FITHOU\ASP_NET\sharebook\sharebook\obj\Debug\sharebook.pdb
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Net.Http.Formatting.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Web.Http.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Web.Http.WebHost.dll
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Net.Http.Formatting.xml
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Web.Http.xml
+C:\Users\Admin\source\repos\sharebook\sharebook\bin\System.Web.Http.WebHost.xml

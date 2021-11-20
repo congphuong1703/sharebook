@@ -21,7 +21,7 @@ namespace sharebook
             {
                 loadImage(parameter);
                 loadBookRelate(parameter);
-            }
+            } 
         }
 
         protected void loadImage(string parameter)
@@ -32,7 +32,7 @@ namespace sharebook
             DataTable dataTable = DataProvider.getInstance.ExecuteQuery(getInfoBook, map);
             if (dataTable.Rows.Count > 0)
             {
-                Image1.Src = (string)dataTable.Rows[0][5];
+                Image1.Src = (string)dataTable.Rows[0][4];
             }
             else
             {

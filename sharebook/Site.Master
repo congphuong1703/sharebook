@@ -14,42 +14,9 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="/Home.aspx">
-                <img src="Assets/img/logo.png" alt="logo share book" />
-            </a>
-            <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menu
-                   
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav">
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="Category.aspx">Danh mục</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="Post.aspx">Đăng Sách</a></li>
-                    <li class="nav-item mx-0 mx-lg-1" style="margin: auto;">
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="search" runnat="server" id="searchBookInput" placeholder="Tìm kiếm" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" runnat="server" id="searchBookBtn" type="button">Tìm kiếm</button>
-                        </form>
-                    </li>
-                </ul>
-                <div class="login navbar-nav ms-auto" id="loginserver" runat="server">
-                </div>
-                <%-- <ul class="navbar-nav ms-auto">
-
-                    <li class="nav-item mx-0 mx-lg-1">
-
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="SignIn.aspx">Đăng nhập</a>
-
-                    </li>
-                </ul>--%>
-            </div>
-        </div>
-    </nav>
-    <main>
-        <form runat="server">
+    <form runat="server">
+       
+        <main>
             <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
                 <div class="container">
                     <a class="navbar-brand" href="/Home.aspx">Share Book</a>
@@ -62,6 +29,7 @@
                         <ul class="navbar-nav">
                             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="Category.aspx">Danh mục</a></li>
                             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="Post.aspx">Đăng Sách</a></li>
+                            <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" runat="server" id="manageUrl" href="Admin.aspx">Quản lý</a></li>
                             <li class="nav-item mx-0 mx-lg-1" style="margin: auto;">
                                 <form class="form-inline">
                                     <input class="form-control mr-sm-2" type="search" runat="server" id="searchBookInput" placeholder="Tìm kiếm" aria-label="Search">
@@ -86,7 +54,7 @@
                 </div>
 
             </main>
-        </form>
-    </main>
+        </main>
+    </form>
 </body>
 </html>
