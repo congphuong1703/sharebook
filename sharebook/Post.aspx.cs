@@ -92,6 +92,8 @@ namespace sharebook
                     map.Add("@pDescription", description.Value);
                     map.Add("@pFile", image);
                     map.Add("@pCreatedAt", DateTime.Now);
+                    map.Add("@pUpdatedAt", DateTime.Now);
+                    
                     DataTable dt = DataProvider.getInstance.ExecuteQuery(postBook, map);
                     if (dt.Rows.Count > 0)
                     {
@@ -100,8 +102,7 @@ namespace sharebook
                         string addBookCategory = "addBookCategory";
                         foreach (ListItem item in TagsDropDownList.Items)
                         {
-                            if (item.Selected == true)
-                            {
+                             if(item.Selected) {
                                 int tagId = Int32.Parse(item.Value);
                                 Dictionary<string, object> tagMap = new Dictionary<string, object> { };
                                 tagMap.Add("@pBookId", bookId);

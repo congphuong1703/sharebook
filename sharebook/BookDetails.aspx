@@ -18,15 +18,14 @@
                 <asp:Repeater ID="RepeaterBookRelate" runat="server">
                     <ItemTemplate>
                         <label>
-                            Tác giả : 
-                        <a href="/User?user_id=<%#Eval("user_id") %>"><%#Eval("username")%> </a>
+                            Tác giả : <a href="/User?user_id=<%# Eval("Id") %>"><%#Eval("username")%> </a>
                         </label>
                         <div>
                             <label class="text-muted"><%#Eval("created_at") %></label>
                         </div>
                         <div>
                             <label>
-                                <a href="/BookDetails?book_id=<%#Eval("book_id") %>"><%#Eval("name")%> </a>
+                                <a href="/BookDetails?book_id=<%#Eval("Id") %>"><%#Eval("name")%> </a>
                             </label>
                         </div>
                     </ItemTemplate>

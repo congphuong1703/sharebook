@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -21,24 +20,47 @@ namespace sharebook
 
         private DataProvider() { }
 
-        public MySqlConnection connectionSQL()
+        public SqlConnection connectionSQL()
         {
             string constr = ConfigurationManager.ConnectionStrings["connectSQL"].ToString();
-            MySqlConnection conn = new MySqlConnection(constr);
+            SqlConnection conn = new SqlConnection(constr);
             conn.Open();
 
             return conn;
         }
 
+        public DataTable SelectAllFrom(string query)
+        {
+            var _dataTable = new DataTable();
+            try
+            {
+                var _conn = this.connectionSQL();
+                var _cmd = new SqlCommand
+                {
+                    Connection = _conn,
+                    CommandText = query
+                };
+                _cmd.ExecuteNonQuery();
+
+                var _da = new SqlDataAdapter(_cmd);
+                _da.Fill(_dataTable);
+                _conn.Close();
+            }
+            finally
+            {
+
+            }
+            return _dataTable;
+        }
         // somthing change here
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
             DataTable data = new DataTable();
 
-            using (MySqlConnection connection = this.connectionSQL())
+            using (SqlConnection connection = this.connectionSQL())
             {
 
-                MySqlCommand command = new MySqlCommand(query, connection);
+                SqlCommand command = new SqlCommand(query, connection);
 
                 if (parameter != null)
                 {
@@ -54,7 +76,7 @@ namespace sharebook
                     }
                 }
 
-                MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
 
                 adapter.Fill(data);
 
@@ -68,9 +90,9 @@ namespace sharebook
         {
             int data = 0;
 
-            using (MySqlConnection connection = this.connectionSQL())
+            using (SqlConnection connection = this.connectionSQL())
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
+                SqlCommand command = new SqlCommand(query, connection);
 
                 if (parameter != null)
                 {
@@ -98,9 +120,9 @@ namespace sharebook
         {
             object data = 0;
 
-            using (MySqlConnection connection = this.connectionSQL())
+            using (SqlConnection connection = this.connectionSQL())
             {
-                MySqlCommand command = new MySqlCommand(query, connection);
+                SqlCommand command = new SqlCommand(query, connection);
 
                 if (parameter != null)
                 {
@@ -131,16 +153,16 @@ namespace sharebook
 
             //tạo kết nối tới database
             // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
-            using (MySqlConnection connection = this.connectionSQL())
+            using (SqlConnection connection = this.connectionSQL())
             {
                 // chạy câu thực thi câu truy vấn query trên data connection
-                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+                SqlCommand cmd = new SqlCommand(storeProcedure, connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 foreach (var key in map.Keys)
                 {
                     cmd.Parameters.AddWithValue(key, map[key]);
                 }
-                MySqlDataAdapter adapter = new MySqlDataAdapter();
+                SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = cmd;
 
                 adapter.Fill(data);
@@ -149,35 +171,15 @@ namespace sharebook
             }
             return data;
         }
-        public MySqlDataReader ExecuteQueryReader(string storeProcedure, Dictionary<string, Object> map)
-        {
-
-            MySqlDataReader rdr;
-            //tạo kết nối tới database
-            // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
-            using (MySqlConnection connection = this.connectionSQL())
-            {
-                // chạy câu thực thi câu truy vấn query trên data connection
-                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
-                cmd.CommandType = CommandType.StoredProcedure;
-                foreach (var key in map.Keys)
-                {
-                    cmd.Parameters.AddWithValue(key, map[key]);
-                }
-                rdr = cmd.ExecuteReader();
-                connection.Close();
-            }
-            return rdr;
-        }
 
         // số dòng trả ra thành công
         public int ExecuteNonQuery(string storeProcedure, Dictionary<string, Object> map)
         {
             int data = 0;
 
-            using (MySqlConnection connection = this.connectionSQL())
+            using (SqlConnection connection = this.connectionSQL())
             {
-                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+                SqlCommand cmd = new SqlCommand(storeProcedure, connection);
 
                 cmd.CommandType = CommandType.StoredProcedure;
                 foreach (var key in map.Keys)
@@ -185,7 +187,7 @@ namespace sharebook
                     cmd.Parameters.AddWithValue(key, map[key]);
                 }
 
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
                 data = cmd.ExecuteNonQuery(); // trả ra số dòng thành công
 
@@ -200,9 +202,9 @@ namespace sharebook
             object data = 0;
 
 
-            using (MySqlConnection connection = this.connectionSQL())
+            using (SqlConnection connection = this.connectionSQL())
             {
-                MySqlCommand cmd = new MySqlCommand(storeProcedure, connection);
+                SqlCommand cmd = new SqlCommand(storeProcedure, connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 foreach (var key in map.Keys)
@@ -210,7 +212,7 @@ namespace sharebook
                     cmd.Parameters.AddWithValue(key, map[key]);
                 }
 
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
 
                 data = cmd.ExecuteScalar();
@@ -219,5 +221,27 @@ namespace sharebook
             }
             return data;
         }
+
+        public SqlDataReader ExecuteQueryReader(string storeProcedure, Dictionary<string, Object> map)
+        {
+
+            SqlDataReader rdr;
+            //tạo kết nối tới database
+            // using khi mà kết thúc khối lệnh thì dữ liệu sẽ tự giải phóng
+            using (SqlConnection connection = this.connectionSQL())
+            {
+                // chạy câu thực thi câu truy vấn query trên data connection
+                SqlCommand cmd = new SqlCommand(storeProcedure, connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                foreach (var key in map.Keys)
+                {
+                    cmd.Parameters.AddWithValue(key, map[key]);
+                }
+                rdr = cmd.ExecuteReader();
+                connection.Close();
+            }
+            return rdr;
+        }
+
     }
 }

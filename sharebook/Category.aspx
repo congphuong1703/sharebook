@@ -14,9 +14,10 @@
         <asp:Repeater ID="RepeaterBooks" runat="server" OnItemDataBound="RepeaterBooksItemDataBound">
             <ItemTemplate>
                 <div class="post-feed-item">
-                <asp:HiddenField ID="hdfBookID" runat="server" Value='<%#Eval("book_id")%>' />
-                    <a href="/User?user_id=<%#Eval("user_id") %>" class="d-flex mr-05">
-                        <img src="https://images.viblo.asia/avatar/837c8044-f5b1-4e61-bf37-941100086d5f.jpg" srcset="https://images.viblo.asia/avatar-retina/837c8044-f5b1-4e61-bf37-941100086d5f.jpg 2x" alt="Avatar" class="avatar avatar--md" data-v-5e990434=""></a>
+                <asp:HiddenField ID="hdfBookID" runat="server" Value='<%#Eval("Id")%>' />
+                    <a href="/User?user_id=<%#Eval("UserId") %>" class="d-flex mr-05">
+                        <img src="<%#Eval("avatar") %>" alt="avatar" class="avatar avatar--md" />                       
+                    </a>
                     <div class="post-feed-item__info">
                         <div class="post-meta--inline">
                             <div class="user--inline d-inline-flex flex-shrink-0">
@@ -26,7 +27,7 @@
                                         <!---->
                                         <div align="center"><i aria-hidden="true" class="el-icon-loading"></i></div>
                                     </div>
-                                    <span class="el-popover__reference-wrapper"><a href="/User?user_id=<%#Eval("user_id") %>" class="mr-05 el-popover__reference" aria-describedby="el-popover-1909" tabindex="0"><%#Eval("fullname") %>
+                                    <span class="el-popover__reference-wrapper"><a href="/User?user_id=<%#Eval("UserId") %>" class="mr-05 el-popover__reference" aria-describedby="el-popover-1909" tabindex="0"><%#Eval("fullname") %>
                                     </a></span></span>
                                 <!---->
                             </div>
@@ -42,7 +43,7 @@
                             <!---->
                         </div>
                         <div class="post-title--inline">
-                            <h3 class="word-break mr-05"><a href="/Book?book_id=<%#Eval("book_id") %>" class="link"><%#Eval("name") %></a></h3>
+                            <h3 class="word-break mr-05"><a href="/Book?book_id=<%#Eval("Id") %>" class="link"><%#Eval("name") %></a></h3>
                             <div class="tags" data-v-190ce5c0="">
                                 <asp:Repeater ID="RepeaterBookTags" runat="server">
                                     <ItemTemplate>
@@ -68,7 +69,7 @@
                             </div>
                             <div class="points">
                                 <div class="carets">
-                                    <asp:LinkButton ID="saveFavourite" runat="server" CommandArgument='<%#Eval("book_id")%>' type="button" class="btn btn-outline-primary" OnClick="Favorite_Click" data-bs-toggle="tooltip" data-bs-placement="top" title="Lưu trữ">
+                                    <asp:LinkButton ID="saveFavourite" runat="server" CommandArgument='<%#Eval("Id")%>' type="button" class="btn btn-outline-primary" OnClick="Favorite_Click" data-bs-toggle="tooltip" data-bs-placement="top" title="Lưu trữ">
                                         <i class="fa fa-save"></i>
                                     </asp:LinkButton>
                                 </div>

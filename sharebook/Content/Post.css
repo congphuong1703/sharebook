@@ -1,5 +1,7 @@
 ﻿
 .form-holder {
+    padding-top: 80px;
+    background-color: #dee9ff;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,6 +11,13 @@
 }
 
     .form-holder .form-content {
+        background-color: #fff;
+        max-width: 600px;
+        
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
+
         position: relative;
         text-align: center;
         display: -webkit-box;
@@ -106,9 +115,6 @@
 .row > * {
     flex-shrink: 0;
     width: 100%;
-    max-width: 100%;
-    padding-right: calc(var(--bs-gutter-x) * .5);
-    padding-left: calc(var(--bs-gutter-x) * .5);
     margin-top: var(--bs-gutter-y);
 }
 .require{

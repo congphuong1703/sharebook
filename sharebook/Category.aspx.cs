@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using sharebook.model;
 using System;
 using System.Collections;
@@ -59,7 +60,7 @@ namespace sharebook
                 Dictionary<string, Object> map = new Dictionary<string, object>();
                 map.Add("@userId", userLogged.Id);
                 map.Add("@bookId", btn.CommandArgument.ToString());
-                MySqlDataReader result = DataProvider.getInstance.ExecuteQueryReader(procedure, map);
+                SqlDataReader result = DataProvider.getInstance.ExecuteQueryReader(procedure, map);
                 if(result.RecordsAffected > 0)
                 {
                     //thong bao

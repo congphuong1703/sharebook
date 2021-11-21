@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -102,7 +103,7 @@ namespace sharebook
                         map.Add("@pBookId", hdfBookID.Value);
                         map.Add("@pComment", commentContent.Text);
                         map.Add("@pCreatedAt", DateTime.Now);
-                        MySqlDataReader dr = DataProvider.getInstance.ExecuteQueryReader(addComment, map);
+                        SqlDataReader dr = DataProvider.getInstance.ExecuteQueryReader(addComment, map);
                         if (dr.RecordsAffected > 0)
                             Response.Redirect(Request.RawUrl);
                         else

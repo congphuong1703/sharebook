@@ -15,13 +15,22 @@ namespace sharebook
     {
 
         /// <summary>
-        /// hdfUserID control.
+        /// avatarHere control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField hdfUserID;
+        protected global::System.Web.UI.HtmlControls.HtmlImage avatarHere;
+
+        /// <summary>
+        /// avatar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload avatar;
 
         /// <summary>
         /// username control.

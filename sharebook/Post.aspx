@@ -54,7 +54,7 @@
                                 <label class="post">
                                     Nhãn
                                 </label>
-                                <asp:ListBox ID="TagsDropDownList" class="form-control" SelectionMode="multiple" runat="server"></asp:ListBox>
+                                <asp:ListBox ID="TagsDropDownList" class="form-control" SelectionMode="Multiple" runat="server"></asp:ListBox>
                                 <div class="invalid-feedback">Nhãn không được để trống</div>
                             </div>
                             <div class="form-button mt-3">

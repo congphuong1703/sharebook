@@ -30,7 +30,7 @@ namespace sharebook
                 userBtn.Visible = true;
                 userBtn.InnerText = user.name;
                 logoutBtn.Visible = true;
-                userBtn.HRef = "User.aspx";
+                userBtn.HRef = "User.aspx?user_id=" + user.id;
             }
         }
 
@@ -41,8 +41,8 @@ namespace sharebook
         }
         protected void FindBook_Click(object sender, EventArgs e)
         {
-            string parameter = searchBookInput.Value;
-            Response.Redirect("Category.aspx?book=" + parameter);
+            //string parameter = searchBookInput.Value;
+            //Response.Redirect("Category.aspx?book=" + parameter);
         }
     }
 }

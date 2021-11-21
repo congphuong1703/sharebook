@@ -119,6 +119,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin.aspx" />
+    <Content Include="Assets\img\bg-book.jpg" />
+    <Content Include="Assets\img\book-cover.jpg" />
     <Content Include="Assets\img\logo.png" />
     <Content Include="Book.aspx" />
     <Content Include="BookDetails.aspx" />
@@ -151,6 +153,9 @@
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Global.asax" />
     <Content Include="ManageUsers.aspx" />
+    <Content Include="Images\123.png" />
+    <Content Include="Images\default-avatar.png" />
+    <Content Include="Images\Frame-41 %281%29.png" />
     <Content Include="Post.aspx" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -195,6 +200,10 @@
     <Content Include="fonts\fa-solid-900.ttf" />
     <Content Include="fonts\fa-solid-900.woff" />
     <Content Include="fonts\fa-solid-900.woff2" />
+    <Content Include="Images\kiem_tra_gk.pdf" />
+    <Content Include="Images\Asg3-Functional-Demonstration.pdf" />
+    <Content Include="Images\LTWNC.01.pdf" />
+    <Content Include="Images\Supperadmin %282%29.pdf" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />

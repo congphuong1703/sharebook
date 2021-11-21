@@ -35,6 +35,12 @@ namespace sharebook
             DataTable dt = DataProvider.getInstance.ExecuteQuery(storeProcedure, map);
             RepeaterProfile.DataSource = dt;
             RepeaterProfile.DataBind();
+
+        }
+
+        protected void edit_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

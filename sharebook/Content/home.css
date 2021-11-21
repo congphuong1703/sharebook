@@ -5,6 +5,12 @@
     margin: 0 20rem;
 }
 
+.main-card-3 {
+    margin-top: 30px;
+    min-height: 100vh;
+    background-image: url('../Assets/img/bg-book.jpg');
+}
+
 .card-top-left {
 }
 
@@ -12,4 +18,25 @@
     display: flex;
     justify-content: space-around;
     max-width: 80%;
+}
+
+.title-home {
+    font-size: 50px;
+    font-weight: 600;
+}
+
+.text-home {
+    font-size: 25px;
+    font-style: italic;
+    font-weight: 500;
+}
+.group-btn a {
+    margin-right: 10px;
+}
+
+.btn-primary-custom {
+    background: #75BDE0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: #333;
 }

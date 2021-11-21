@@ -34,7 +34,7 @@ namespace sharebook
             Dictionary<string, object> mapExists = new Dictionary<string, object> { };
             mapExists.Add("@p_email", email);
 
-            DataTable dtExists = DataProvider.getInstance.ExecuteQuery(isExistAccount, map);
+            DataTable dtExists = DataProvider.getInstance.ExecuteQuery(isExistAccount, mapExists);
 
             if (dtExists.Rows.Count == 0)
             {

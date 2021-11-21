@@ -18,7 +18,7 @@
                                         <div class="col-xl-6 col-md-6 d-flex justify-content-lg-start justify-content-md-start justify-content-center">
                                             <ul>
                                                 <li>
-                                                    <div class="counter"><%#Eval("favourite") %></div>
+                                                    <div class="counter"><%#Eval("favorite") %></div>
                                                     <div class="heading">Lưu trữ</div>
                                                 </li>
                                                 <li>
@@ -31,7 +31,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="col-xl-4 col-md-4 d-flex justify-content-center">
+                                        <div class="col-xl-3 col-md-3 d-flex justify-content-center">
                                             <div class="image-default">
                                                 <img class="rounded-circle" src="<%#Eval("avatar") %>" alt="...">
                                             </div>
@@ -40,8 +40,10 @@
                                                 <div class="location"><%#Eval("email") %></div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-2 col-md-2 d-flex justify-content-lg-end justify-content-md-end justify-content-center">
+                                        <div class="col-xl-3 col-md-3 d-flex justify-content-lg-end justify-content-md-end justify-content-center">
                                             <div class="follow">
+                                                <a href="EditProfile.aspx?user_id=<%# Eval("Id") %>" class="btn btn-info">Sửa thông tin</a>
+                                                <%--<asp:LinkButton ID="edit" OnClick="edit_Click" CommandArgument='<%#Eval("Id") %>' class="btn btn-shadow" runat="server"><i class="la la-user-plus"></i>Sửa thông tin</asp:LinkButton>--%>
                                             </div>
                                         </div>
                                     </div>

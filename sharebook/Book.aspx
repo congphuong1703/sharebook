@@ -11,27 +11,23 @@
             <ItemTemplate>
                 <asp:HiddenField ID="hdfUserID" runat="server" Value='<%#Eval("userId")%>' />
                 <asp:HiddenField ID="hdfBookID" runat="server" Value='<%#Eval("bookId")%>' />
-                <asp:HiddenField ID="hdfFile" runat="server" Value='<%#Eval("file")%>' />
+                <asp:HiddenField ID="hdfFile" runat="server" Value='<%#Eval("fileSrc")%>' />
                 <div class="row">
                     <div class="col-2">
-                        <img data-v-5e990434="" src="<%#Eval("thumbnail") %>" alt="Avatar" class="avatar avatar--xxl">
+                        <img data-v-5e990434="" src="<%#Eval("thumbnail") %>" alt="Avatar" class="thumbnail">
                     </div>
                     <div class="col-10">
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
+                                    <div class="col-8">
+                                        <label class="text-muted"><%#Eval("created_at") %></label> by <a href="User.aspx?user_id=<%#Eval("userId") %>"><%#Eval("author") %></a>
+                                    </div>
                                     <div class="col-2">
-                                        <h6><%#Eval("author") %></h6>
+                                        
                                     </div>
-                                    <div class="col-4">
-                                        <label class="text-muted"><%#Eval("created_at") %></label>
-                                    </div>
-                                    <div class="col-6">
-                                        <asp:Repeater ID="RepeaterBookTags" runat="server">
-                                            <ItemTemplate>
-                                                <a href="Category.aspx?tag=<%#Eval("name") %>" class="el-tag tag el-tag--info el-tag--mini" data-v-1ebc36b8="" data-v-190ce5c0=""><%#Eval("name") %> </a>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
+                                    <div class="col-2">
+                                     
                                     </div>
                                 </div>
                             </div>
@@ -40,17 +36,17 @@
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="col-12">
-                                            <h2><%#Eval("name") %></h2>
+                                            <h2>Sách: <%#Eval("name") %></h2>
                                         </div>
-                                        <div class="col-12">
-                                            <label>Mô tả</label>
+                                        <div class="col-12">    
+                                            <h4>Mô tả</h4>
                                             <p><%#Eval("description") %></p>
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-12 mt-5">
                                             <div class="btn-process mt-5">
-                                                <asp:LinkButton class="btn btn-primary" runat="server" ID="readBook" OnClick="Read_Click" CommandArgument='<%# Eval("bookId") %>'>Đọc sách</asp:LinkButton>
-                                                <asp:LinkButton OnClick="Download_Click" ID="downloadBtn" runat="server" class="btn btn-primary" CommandArgument='<%# Eval("file") %>'>Tải xuống</asp:LinkButton>
-                                                <asp:LinkButton class="btn btn-primary" ID="favoriteBtn" runat="server" OnClick="Favorite_Click" CommandArgument='<%# Eval("bookId") %>'>Đọc sau</asp:LinkButton>
+                                                <asp:LinkButton class="btn btn-info" runat="server" ID="readBook" OnClick="Read_Click" CommandArgument='<%# Eval("bookId") %>'>Đọc sách</asp:LinkButton>
+                                                <asp:LinkButton OnClick="Download_Click" ID="downloadBtn" runat="server" class="btn btn-info" CommandArgument='<%# Eval("fileSrc") %>'>Tải xuống</asp:LinkButton>
+                                                <asp:LinkButton class="btn btn-info" ID="favoriteBtn" runat="server" OnClick="Favorite_Click" CommandArgument='<%# Eval("bookId") %>'>Đọc sau</asp:LinkButton>
                                             </div>
                                         </div>
                                     </div>
@@ -71,14 +67,28 @@
                                                 </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                        <asp:TextBox ID="commentContent" type="text" runat="server" name="commentContent" placeholder="Nhập bình luận...." />
-                                        <asp:Button ID="submitComment" class="btn btn-primary" Text="Bình luận" OnClick="Comment_Click" runat="server" />
+                                        <asp:TextBox ID="commentContent" type="text" runat="server" name="commentContent" CssClass="form-control" placeholder="Nhập bình luận...." />
+                                        <asp:Button ID="submitComment" class="btn btn-info mt-3" Text="Bình luận" OnClick="Comment_Click" runat="server" />
                                     </div>
                                 </div>
+
+                              
                             </div>
                         </div>
+
+                     
                     </div>
                 </div>
+                   <div class="row">
+                       <div class="col-2"></div>
+                       <div class="col-8">
+                             <asp:Repeater ID="RepeaterBookTags" runat="server">
+                                   <ItemTemplate>
+                                      <a href="Category.aspx?tag=<%#Eval("name") %>" class="el-tag tag el-tag--info el-tag--mini" data-v-1ebc36b8="" data-v-190ce5c0=""><%#Eval("name") %> </a>
+                                  </ItemTemplate>
+                             </asp:Repeater>              
+                        </div>
+                 </div>
             </ItemTemplate>
         </asp:Repeater>
     </div>

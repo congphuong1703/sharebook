@@ -26,11 +26,13 @@ namespace sharebook
                 UserModel user = new UserModel()
                 {
                     id = (int)dataTable.Rows[0][0],
-                    name = dataTable.Rows[0][2] == null ? "" : dataTable.Rows[0][2].ToString(),
                     email = dataTable.Rows[0][1] == null ? "" : dataTable.Rows[0][1].ToString(),
+                    name = dataTable.Rows[0][2] == null ? "" : dataTable.Rows[0][2].ToString(),
                     role = dataTable.Rows[0][3] == null ? "" : dataTable.Rows[0][3].ToString()
+                    avatar = dataTable.Rows[0][4] == null ? "" : dataTable.Rows[0][4].ToString()
                 };
                 Session["user"] = user;
+                Session["login"] = true;
                 Response.Redirect("Home.aspx");
             }
             else
