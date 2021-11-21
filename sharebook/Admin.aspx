@@ -26,7 +26,10 @@
                             <td><%#Eval("email") %></td>
                             <td><%#Eval("role") %></td>
                             <td>
-                                <button class="btn btn-danger" type="button" onclick="deleteUser('<%#Eval("user_id") %>')">Xóa</button></td>
+                                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalEditUser"
+                                    onclick="editUser('<%#Eval("user_id") %>')">
+                                    Sửa</button></td>
+                            <%--<button class="btn btn-danger" type="button" onclick="deleteUser('<%#Eval("user_id") %>')">Xóa</button>--%></td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -44,13 +47,55 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Tên nhãn:</label>
+                            <label for="tag-text">Tên nhãn:</label>
                             <input class="form-control" type="text" id="tag-text" />
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                         <button type="button" class="btn btn-primary" id="addTag">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalEditUser" tabindex="-1" role="dialog" aria-labelledby="modalEditUserTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalEditUserLongTitle">Sửa người dùng</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="userId">ID:</label>
+                            <asp:TextBox runat="server" class="form-control" data-type="userId" type="text" ID="TextBox1" />
+                        </div>
+                        <div class="form-group">
+                            <label for="userName">Tên:</label>
+                            <asp:TextBox runat="server" class="form-control" data-type="userName" type="text" ID="userName" />
+                        </div>
+                        <div class="form-group">
+                            <label for="userEmail" class="col-form-label">Email:</label>
+                            <asp:TextBox runat="server" class="form-control" data-type="userEmail" type="text" ID="userEmail" />
+                        </div>
+                        <div class="form-group">
+                            <label for="userRole" class="col-form-label">Vai trò:</label>
+                            <asp:DropDownList runat="server" class="form-control"
+                                data-type="userRole" type="text" ID="userRole">
+                                <asp:ListItem Selected="True" Value="0">Người dùng</asp:ListItem>
+                                <asp:ListItem Value="1">Admin</asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="form-group">
+                            <label for="userAvatar" class="col-form-label">Ảnh đại diện:</label>
+                            <asp:FileUpload runat="server" data-type="userAvatar" accept=".png, .jpg, .jpeg" ID="userAvatar" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <asp:Button runat="server" type="button" data-type="saveUser" class="btn btn-primary" ID="updateUser" Text="Lưu" />
                     </div>
                 </div>
             </div>
@@ -67,6 +112,23 @@
                 method: 'Delete',
                 success: function () {
                     alert("Xóa thành công");
+                },
+                error: function (xhr, err) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
+        function editUser(userId) {
+            console.log(userId);
+            $.ajax({
+                url: '/api/Manage/' + userId,
+                method: 'GET',
+                success: function (data) {
+                    console.log("data", data);
+                    $('input[data-type=userId]').val("dsd")
+                    $('input[data-type=userName]').val("dsd")
+                    $('input[data-type=userEmail]').val("dsd")
+                    $('input[data-type=userRole]').val("dsd")
                 },
                 error: function (xhr, err) {
                     alert(xhr.responseText);

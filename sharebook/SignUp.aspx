@@ -13,24 +13,44 @@
                 <h6 class="mb-0 text-sm">Họ và tên</h6>
             </label>
             <asp:TextBox ID="txtName" runat="server" type="text" name="name" placeholder="Nhập họ và tên" />
+            <asp:CustomValidator ID="CustomValidator1" runat="server"
+                ControlToValidate="txtName" Display="Dynamic"
+                ForeColor="Red" OnServerValidate="Name_ServerValidate"
+                SetFocusOnError="True"></asp:CustomValidator>
+            <asp:Label ID="LabelName" runat="server" Text=""></asp:Label>
         </div>
         <div class="row px-3">
             <label class="mb-1">
                 <h6 class="mb-0 text-sm">Email</h6>
             </label>
             <asp:TextBox ID="txtEmail" runat="server" type="text" name="email" placeholder="Nhập email" />
+            <asp:CustomValidator ID="CustomValidator3" runat="server"
+                ControlToValidate="txtName" Display="Dynamic"
+                ForeColor="Red" OnServerValidate="Email_ServerValidate"
+                SetFocusOnError="True"></asp:CustomValidator>
+            <asp:Label ID="LabelEmail" runat="server" Text=""></asp:Label>
+
         </div>
         <div class="row px-3">
             <label class="mb-1">
                 <h6 class="mb-0 text-sm">Mật khẩu</h6>
             </label>
             <asp:TextBox ID="txtPassword" runat="server" type="password" name="password" placeholder="Nhập mật khẩu" />
+            <asp:CustomValidator ID="CustomValidator2" runat="server"
+                ControlToValidate="txtPassword" Display="Dynamic"
+                ForeColor="Red" OnServerValidate="CustomValidator1_ServerValidate"
+                SetFocusOnError="True"></asp:CustomValidator>
+            <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+
         </div>
         <div class="row px-3">
             <label class="mb-1">
                 <h6 class="mb-0 text-sm">Nhập lại mật khẩu</h6>
             </label>
             <asp:TextBox ID="txtConfirmPassword" runat="server" type="password" name="confirmPassword" placeholder="Nhập lại mật khẩu" />
+            <asp:CompareValidator ID="CompareValidator2" runat="server"
+                ErrorMessage="Mật khẩu mới không khớp" ControlToCompare="txtPassword"
+                ControlToValidate="txtConfirmPassword" ForeColor="Red"></asp:CompareValidator>
         </div>
         <div class="row mb-3 px-3 mt-4">
             <asp:Button runat="server" ID="signUp" Text="Đăng ký" type="submit" class="btn btn-blue text-center" OnClick="signUp_Click" />

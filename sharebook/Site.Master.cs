@@ -12,6 +12,8 @@ namespace sharebook
         protected void Page_Load(object sender, EventArgs e)
         {
             UserModel user = (UserModel)Session["user"];
+            manageUrl.Visible = false;
+
             if (user == null)
             {
                 userBtn.Visible = false;
@@ -23,10 +25,6 @@ namespace sharebook
                 if (user.role == "1")
                 {
                     manageUrl.Visible = true;
-                }
-                else
-                {
-                    manageUrl.Visible = false;
                 }
                 loginBtn.Visible = false;
                 userBtn.Visible = true;

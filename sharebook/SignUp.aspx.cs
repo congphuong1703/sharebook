@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
+using System.Web.UI.WebControls;
 
 namespace sharebook
 {
@@ -37,11 +38,12 @@ namespace sharebook
 
             if (dtExists.Rows.Count == 0)
             {
-                MySqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
                 map.Add("@p_email", email);
                 map.Add("@p_password", password);
                 map.Add("@p_role", 0);
                 map.Add("@p_name", name);
+                MySqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
+
                 if (rdr.RecordsAffected > 0)
                 {
                     Response.Redirect("SignIn.aspx");
@@ -57,6 +59,52 @@ namespace sharebook
                 errorNotify.Text = "Email này đã được sử dụng.";
             }
 
+        }
+
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int length = args.Value.Length;
+            if (length >= 6)
+            {
+
+                args.IsValid = true;
+            }
+            else
+            {
+                Label1.Text = "Mật khẩu dài ít nhất 6 kí tự.";
+                args.IsValid = false;
+
+            }
+        }
+
+        protected void CustomValidator2_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int length = args.Value.Length;
+            if (length > 0)
+            {
+
+                args.IsValid = true;
+            }
+            else
+            {
+                args.IsValid = false;
+
+            }
+        }
+        protected void Email_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            int length = args.Value.Length;
+            if (length > 0)
+            {
+
+                args.IsValid = true;
+                Label1.Text = "Mật khẩu dài ít nhất 6 kí tự.";
+            }
+            else
+            {
+                args.IsValid = false;
+
+            }
         }
     }
 }
