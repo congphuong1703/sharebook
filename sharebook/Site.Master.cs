@@ -11,7 +11,32 @@ namespace sharebook
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            UserModel user = (UserModel)Session["user"];
+            if (user == null)
+            {
+                userBtn.Visible = false;
+                logoutBtn.Visible = false;
+                loginBtn.Visible = true;
+            }
+            else
+            {
+                loginBtn.Visible = false;
+                userBtn.Visible = true;
+                userBtn.InnerText = user.name;
+                logoutBtn.Visible = true;
+                userBtn.HRef = "User.aspx?user_id=" + user.id;
+            }
+        }
 
+        protected void Logout_Click(object sender, EventArgs e)
+        {
+            Session.Remove("user");
+            Response.Redirect("SignIn.aspx");
+        }
+        protected void FindBook_Click(object sender, EventArgs e)
+        {
+            //string parameter = searchBookInput.Value;
+            //Response.Redirect("Category.aspx?book=" + parameter);
         }
     }
 }

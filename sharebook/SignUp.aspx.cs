@@ -2,6 +2,8 @@
 using System;
 using System.Configuration;
 using System.Data;
+using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 
 namespace sharebook
 {
@@ -16,7 +18,7 @@ namespace sharebook
 
         protected void signUp_Click(object sender, EventArgs e)
         {
-            SqlConnection conn;
+            MySqlConnection conn;
             string email = txtEmail.Text;
             string password = txtPassword.Text;
             string name = txtName.Text;
@@ -26,44 +28,36 @@ namespace sharebook
                 errorNotify.Text = "Đăng ký thành thất bại. Kiểm tra lại mật khẩu";
                 return;
             }
-            using (conn = DataProvider.getInstance.connectionSQL())
+            string isExistAccount = "isExistAccount";
+            string createNewAccount = "createNewAccount";
+            Dictionary<string, object> map = new Dictionary<string, object> { };
+            Dictionary<string, object> mapExists = new Dictionary<string, object> { };
+            mapExists.Add("@p_email", email);
+
+            DataTable dtExists = DataProvider.getInstance.ExecuteQuery(isExistAccount, map);
+
+            if (dtExists.Rows.Count == 0)
             {
-                using (cmd = new SqlCommand("isExistAccount", conn))
+                SqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
+                map.Add("@p_email", email);
+                map.Add("@p_password", email);
+                map.Add("@p_role", email);
+                map.Add("@p_name", email);
+                if (rdr.RecordsAffected > 0)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@p_email", email);
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    if (!reader.HasRows)
-                    {
-                        reader.Close();
-                        using (cmd = new SqlCommand("createNewAccount", conn))
-                        {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@p_email", email);
-                            cmd.Parameters.AddWithValue("@p_password", password);
-                            cmd.Parameters.AddWithValue("@p_role", 1);
-                            cmd.Parameters.AddWithValue("@p_name", name);
-
-                            SqlDataReader rdr = cmd.ExecuteReader();
-                            if (rdr.RecordsAffected > 0)
-                            {
-                                Response.Redirect("SignIn.aspx");
-                            }
-                            else
-                            {
-                                errorNotify.Text = "Đăng ký thành thất bại. Kiểm tra lại thông tin";
-                            }
-                            rdr.Close();
-                        }
-                    }
-                    else
-                    {
-                        errorNotify.Text = "Email này đã được sử dụng.";
-                    }
-
+                    Response.Redirect("SignIn.aspx");
                 }
+                else
+                {
+                    errorNotify.Text = "Đăng ký thành thất bại. Kiểm tra lại thông tin";
+                }
+                rdr.Close();
             }
-        }
+            else
+            {
+                errorNotify.Text = "Email này đã được sử dụng.";
+            }
 
+        }
     }
 }

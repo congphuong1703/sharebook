@@ -1,7 +1,12 @@
-﻿/* Move down content because we have a fixed navbar that is 50px tall */
+﻿
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
+
+/* Move down content because we have a fixed navbar that is 50px tall */
 body {
     padding-top: 50px;
     height: 100%;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
 }
 
 a:hover {
@@ -20,9 +25,14 @@ a:hover {
 input,
 select,
 textarea {
-    max-width: 280px;
+   
 }
 
+main {
+ 
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
@@ -51,7 +61,7 @@ textarea {
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link {
-    color: #fff;
+    color: #333;
 }
 
 #mainNav {
@@ -61,9 +71,13 @@ textarea {
 .bg-secondary {
     background-color: #2c3e50 !important;
 }
-
+.bg-third {
+    background-color: #ecf0f1 !important;
+    border-bottom: 1px solid #eaeaea;
+}
 .main-card {
-    margin-top: 1rem;
+    margin-top: -1rem;
+    min-height: 90vh;
 }
 
 .footer a {

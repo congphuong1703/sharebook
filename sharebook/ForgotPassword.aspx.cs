@@ -21,31 +21,23 @@ namespace sharebook
         {
             string email = txtEmail.Text;
             SqlConnection conn;
-            using (conn = DataProvider.getInstance.connectionSQL())
+            string isExistAccount = "isExistAccount";
+            Dictionary<string, object> map = new Dictionary<string, object> { };
+            map.Add("@p_email", email);
+            DataTable dt = DataProvider.getInstance.ExecuteQuery(isExistAccount, map);
+            if (dt.Rows.Count == 0)
             {
-                SqlCommand cmd;
-                using (cmd = new SqlCommand("isExistAccount", conn))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@p_email", email);
-
-                    SqlDataReader rdr = cmd.ExecuteReader();
-                    if (!rdr.HasRows)
-                    {
-                        errorNotify.Text = "Không tồn tại email";
-                        return;
-                    }
-                    if (sendMail(email))
-                    {
-                        Response.Write("<script language='javascript' type='text/javascript'>window.location.href='https://gmail.com'</script>");
-                    }
-                    else
-                    {
-                        errorNotify.Text = "Gửi email không thành công";
-                        return;
-                    }
-                    rdr.Close();
-                }
+                errorNotify.Text = "Không tồn tại email";
+                return;
+            }
+            if (sendMail(email))
+            {
+                Response.Write("<script language='javascript' type='text/javascript'>window.location.href='https://gmail.com'</script>");
+            }
+            else
+            {
+                errorNotify.Text = "Gửi email không thành công";
+                return;
             }
         }
 
@@ -69,11 +61,11 @@ namespace sharebook
                 int rowsEffect = DataProvider.getInstance.ExecuteNonQuery("resetPassword", map);
                 if (rowsEffect < 1)
                 {
-                     return false;
+                    return false;
                 }
 
                 var fromAddress = new MailAddress("congphuong.jav62@gmail.com", "Share Book");
-                var toAddress = new MailAddress("congphuong.vietnam62@gmail.com");
+                var toAddress = new MailAddress(email);
                 string fromPassword = "Conghpuong1a";
                 string subject = "Đổi mật khẩu - ShareBook";
                 string body = "Mật khẩu của bạn đã được thay đổi. Mật khẩu mới của bạn là : " + newPassword;

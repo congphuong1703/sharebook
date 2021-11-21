@@ -27,7 +27,7 @@
                             <li class="feedbar-item"></li>
                             <asp:ListView ID="categories" runat="server">
                                 <ItemTemplate>
-                                    <li class="feedbar-item nuxt-link-exact-active active active"><a href="/Category?name=<%#Eval("name") %>" aria-current="page" class="feed-link posts-newest">
+                                    <li class="feedbar-item nuxt-link-exact-active active active"><a href="/Category?name=<%#Eval("slug") %>" aria-current="page" class="feed-link posts-newest">
                                         <div class="el-badge badge-has-new">
                                             <%#Eval("name") %>
                                             <sup class="el-badge__content el-badge__content--undefined is-fixed" style="display: none;"></sup>
@@ -42,8 +42,6 @@
             </div>
         </div>
     </div>
-    <form runat="server">
         <asp:ContentPlaceHolder ID="MainContentBook" runat="server">
         </asp:ContentPlaceHolder>
-    </form>
 </asp:Content>

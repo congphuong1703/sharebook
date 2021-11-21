@@ -1,4 +1,6 @@
-﻿using sharebook.model;
+﻿using MySql.Data.MySqlClient;
+using System.Data.SqlClient;
+using sharebook.model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,50 +14,61 @@ namespace sharebook
 {
     public partial class Category : System.Web.UI.Page
     {
-        private void LoadBookSource(string parameter)
+        private void LoadBookSource(string categoryName, string parameter, string tagName)
         {
-            string query = "";
-            if (String.IsNullOrEmpty(parameter) || parameter.Equals("Mới nhất"))
-                query = "select b.book_id, b.name,b.thumbnail,b.description,DATE_FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
-                    "count(c.comment_id) as comment ,count(f.favourite_id) as favourite,u.user_id,u.name as fullname from tbl_book as b " +
-                    "join tbl_user as u on b.user_id = u.user_id left join tbl_favourite as f on b.book_id = f.book_id " +
-                    "left join tbl_comment as c on b.book_id = c.book_id group by b.book_id";
+            string query = "getCategoriesByNameAndTag";
+            Dictionary<string, object> map = new Dictionary<string, object> { };
+            if ((String.IsNullOrEmpty(categoryName) || categoryName.Equals("Mới nhất")) && String.IsNullOrEmpty(tagName) && String.IsNullOrEmpty(parameter))
+            {
+                map.Add("@pCategoryName", "");
+                map.Add("@pTagName", "");
+                map.Add("@pBookName", "");
+
+            }
+            else if (!String.IsNullOrEmpty(categoryName))
+            {
+                map.Add("@pCategoryName", categoryName);
+                map.Add("@pTagName", "");
+                map.Add("@pBookName", "");
+            }
+            else if (!String.IsNullOrEmpty(tagName))
+            {
+                map.Add("@pCategoryName", "");
+                map.Add("@pTagName", tagName);
+                map.Add("@pBookName", "");
+            }
             else
             {
-                query = "select b.book_id, b.name,b.thumbnail,b.description,DATE_FORMAT(b.update_at, '%d/%m/%Y') as create_at," +
-                  "count(c.comment_id) as comment ,count(f.favourite_id) as favourite,u.user_id,u.name as fullname from tbl_book as b " +
-                  "join tbl_user as u on b.user_id = u.user_id left join tbl_favourite as f on b.book_id = f.book_id " +
-                  "left join tbl_comment as c on b.book_id = c.book_id join tbl_book_category as bc on " +
-                  "bc.book_id = b.book_id join tbl_categories as ca on bc.categoty_id = ca.category_id where ca.category_id = " + parameter + " group by b.book_id";
+                map.Add("@pCategoryName", "");
+                map.Add("@pTagName", "");
+                map.Add("@pBookName", parameter);
             }
-            DataTable dataTable = DataProvider.getInstance.ExecuteQuery(query);
+
+            DataTable dataTable = DataProvider.getInstance.ExecuteQuery(query, map);
             RepeaterBooks.DataSource = dataTable;
             RepeaterBooks.DataBind();
         }
+
+
         protected virtual void SaveFavourite_Click(Object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             Users userLogged = (Users)Session["user"];
             if (userLogged != null)
             {
-                string query = "select * from tbl_favourite where book_id = " + btn.CommandArgument.ToString() + " and user_id =" + userLogged.Id;
-                int existFavourite = DataProvider.getInstance.ExecuteNonQuery(query);
-                string procedure = "";
-                if (existFavourite > 0)
-                {
-                    procedure = "removeNewFavourite";
-                    message.InnerHtml = Server.HtmlEncode("Đã lưu trữ thành công");
-                }
-                else
-                {
-                    procedure = "addNewFavourite";
-                    message.InnerHtml = Server.HtmlEncode("Đã xóa lưu trữ");
-                }
-
+                string procedure = "addNewFavourite";
                 Dictionary<string, Object> map = new Dictionary<string, object>();
                 map.Add("@userId", userLogged.Id);
                 map.Add("@bookId", btn.CommandArgument.ToString());
-                int result = DataProvider.getInstance.ExecuteNonQuery(procedure, map);
+                SqlDataReader result = DataProvider.getInstance.ExecuteQueryReader(procedure, map);
+                if(result.RecordsAffected > 0)
+                {
+                    //thong bao
+                }
+                else
+                {
+                    //thong bao
+                }
             }
             else
             {
@@ -84,9 +97,39 @@ namespace sharebook
         {
             if (!IsPostBack)
             {
-                var parameter = Request.QueryString["name"];
-                LoadBookSource(parameter);
+                var category = Request.QueryString["name"];
+                var tag = Request.QueryString["tag"];
+                var parameter = Request.QueryString["book"];
+                LoadBookSource(category, parameter, tag);
             }
+        }
+
+
+        protected void Favorite_Click(object sender, EventArgs e)
+        {
+            UserModel user = (UserModel)Session["user"];
+            if (user == null)
+                Response.Redirect("SignIn.aspx");
+            //Get the reference of the clicked button.
+            LinkButton button = (sender as LinkButton);
+
+            string addNewFavourite = "addNewFavourite";
+            Dictionary<string, object> map = new Dictionary<string, object> { };
+            string commandArgument = button.CommandArgument;
+
+            map.Add("@userId", user.id);
+            map.Add("@bookId", commandArgument);
+            DataTable dataTable = DataProvider.getInstance.ExecuteQuery(addNewFavourite, map);
+
+            if (dataTable.Rows.Count > 0)
+            {
+                //thong bao
+            }
+            else
+            {
+                //thong bao
+            }
+
         }
     }
 }
