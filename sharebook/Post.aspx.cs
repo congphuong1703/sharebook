@@ -59,8 +59,8 @@ namespace sharebook
                         {
                             string fileName = "Images/" + images.FileName;
                             string filePath = MapPath(fileName);
-
-                            avatar.SaveAs(filePath);
+                            images.PostedFile.SaveAs(MapPath("~") + "/Images/" + images.PostedFile.FileName);
+                            //avatar.SaveAs(filePath);
                             image = fileName;
                         }
                     }
@@ -75,6 +75,7 @@ namespace sharebook
                         {
                             string fileName = "Images/" + avatar.FileName;
                             string filePath = MapPath(fileName);
+                            avatar.PostedFile.SaveAs(MapPath("~") + "/Images/" + avatar.PostedFile.FileName);
 
                             avatar.SaveAs(filePath);
                             ava = fileName;

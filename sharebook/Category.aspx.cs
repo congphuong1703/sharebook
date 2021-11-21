@@ -49,34 +49,6 @@ namespace sharebook
             RepeaterBooks.DataBind();
         }
 
-
-        protected virtual void SaveFavourite_Click(Object sender, EventArgs e)
-        {
-            Button btn = (Button)sender;
-            Users userLogged = (Users)Session["user"];
-            if (userLogged != null)
-            {
-                string procedure = "addNewFavourite";
-                Dictionary<string, Object> map = new Dictionary<string, object>();
-                map.Add("@userId", userLogged.Id);
-                map.Add("@bookId", btn.CommandArgument.ToString());
-                SqlDataReader result = DataProvider.getInstance.ExecuteQueryReader(procedure, map);
-                if(result.RecordsAffected > 0)
-                {
-                    //thong bao
-                }
-                else
-                {
-                    //thong bao
-                }
-            }
-            else
-            {
-                Response.Redirect("/SignIn.aspx");
-            }
-        }
-
-
         protected void RepeaterBooksItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -122,11 +94,11 @@ namespace sharebook
 
             if (dataTable.Rows.Count > 0)
             {
-                //thong bao
+                Response.Write("<script>alert('Thêm thành công vào danh sách đọc sau!');</script>");
             }
             else
             {
-                //thong bao
+                Response.Write("<script>alert('Thêm vào danh sách đọc sau thất bại!');</script>");
             }
 
         }

@@ -103,13 +103,12 @@ namespace sharebook
                         map.Add("@pBookId", hdfBookID.Value);
                         map.Add("@pComment", commentContent.Text);
                         map.Add("@pCreatedAt", DateTime.Now);
-                        SqlDataReader dr = DataProvider.getInstance.ExecuteQueryReader(addComment, map);
+                        MySqlDataReader dr = DataProvider.getInstance.ExecuteQueryReader(addComment, map);
                         if (dr.RecordsAffected > 0)
                             Response.Redirect(Request.RawUrl);
                         else
                         {
-                            //thong bao
-
+                            Response.Write("<script>alert('Thêm bình luận thất bại!');</script>");
                         }
                     }
                 }
@@ -137,11 +136,11 @@ namespace sharebook
 
             if (dataTable.Rows.Count > 0)
             {
-                //thong bao
+                Response.Write("<script>alert('Đã thêm vào danh sách đọc sau!');</script>");
             }
             else
             {
-                //thong bao
+                Response.Write("<script>alert('Đã thêm vào danh sách đọc sau!');</script>");
             }
 
         }

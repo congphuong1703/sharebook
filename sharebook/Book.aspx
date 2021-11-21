@@ -11,7 +11,7 @@
             <ItemTemplate>
                 <asp:HiddenField ID="hdfUserID" runat="server" Value='<%#Eval("userId")%>' />
                 <asp:HiddenField ID="hdfBookID" runat="server" Value='<%#Eval("bookId")%>' />
-                <asp:HiddenField ID="hdfFile" runat="server" Value='<%#Eval("fileSrc")%>' />
+                <asp:HiddenField ID="hdfFile" runat="server" Value='<%#Eval("file")%>' />
                 <div class="row">
                     <div class="col-2">
                         <img data-v-5e990434="" src="<%#Eval("thumbnail") %>" alt="Avatar" class="thumbnail">
@@ -45,7 +45,7 @@
                                         <div class="col-12 mt-5">
                                             <div class="btn-process mt-5">
                                                 <asp:LinkButton class="btn btn-info" runat="server" ID="readBook" OnClick="Read_Click" CommandArgument='<%# Eval("bookId") %>'>Đọc sách</asp:LinkButton>
-                                                <asp:LinkButton OnClick="Download_Click" ID="downloadBtn" runat="server" class="btn btn-info" CommandArgument='<%# Eval("fileSrc") %>'>Tải xuống</asp:LinkButton>
+                                                <asp:LinkButton OnClick="Download_Click" ID="downloadBtn" runat="server" class="btn btn-info" CommandArgument='<%# Eval("file") %>'>Tải xuống</asp:LinkButton>
                                                 <asp:LinkButton class="btn btn-info" ID="favoriteBtn" runat="server" OnClick="Favorite_Click" CommandArgument='<%# Eval("bookId") %>'>Đọc sau</asp:LinkButton>
                                             </div>
                                         </div>

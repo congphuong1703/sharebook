@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container ">
-        <button type="button" class="mt-3 btn btn-primary" data-toggle="modal" id="addTagBtn" data-target="#exampleModalCenter">
+        <button type="button" class="mt-5 btn btn-primary" data-toggle="modal" id="addTagBtn" data-target="#exampleModalCenter">
             Thêm nhãn
         </button>
         <table class="mt-3 table table-striped table-hover">
@@ -125,10 +125,12 @@
                 method: 'GET',
                 success: function (data) {
                     console.log("data", data);
-                    $('input[data-type=userId]').val("dsd")
-                    $('input[data-type=userName]').val("dsd")
-                    $('input[data-type=userEmail]').val("dsd")
-                    $('input[data-type=userRole]').val("dsd")
+                    if (data != undefined) {
+                        $('input[data-type=userId]').val(data.id);
+                        $('input[data-type=userName]').val(data.name);
+                        $('input[data-type=userEmail]').val(data.email);
+                        $("select[data-type=userRole] option[value='" + data.role + "']").prop('selected', true);
+                    }
                 },
                 error: function (xhr, err) {
                     alert(xhr.responseText);

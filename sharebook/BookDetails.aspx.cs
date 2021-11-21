@@ -21,7 +21,7 @@ namespace sharebook
             {
                 loadImage(parameter);
                 loadBookRelate(parameter);
-            } 
+            }
         }
 
         protected void loadImage(string parameter)
@@ -36,7 +36,7 @@ namespace sharebook
             }
             else
             {
-                //thong bao
+                Image1.Src = "Images/default-avatar.png";
             }
         }
 
