@@ -18,7 +18,7 @@ namespace sharebook
 
         protected void signUp_Click(object sender, EventArgs e)
         {
-            MySqlConnection conn;
+            SqlConnection conn;
             string email = txtEmail.Text;
             string password = txtPassword.Text;
             string name = txtName.Text;
@@ -34,15 +34,16 @@ namespace sharebook
             Dictionary<string, object> mapExists = new Dictionary<string, object> { };
             mapExists.Add("@p_email", email);
 
-            DataTable dtExists = DataProvider.getInstance.ExecuteQuery(isExistAccount, map);
+            DataTable dtExists = DataProvider.getInstance.ExecuteQuery(isExistAccount, mapExists);
 
             if (dtExists.Rows.Count == 0)
             {
-                SqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
                 map.Add("@p_email", email);
-                map.Add("@p_password", email);
-                map.Add("@p_role", email);
-                map.Add("@p_name", email);
+                map.Add("@p_password", password);
+                map.Add("@p_role", 1);
+                map.Add("@p_name", name);
+
+                SqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
                 if (rdr.RecordsAffected > 0)
                 {
                     Response.Redirect("SignIn.aspx");

@@ -48,11 +48,17 @@
                     <a class="navbar-brand" href="/Home.aspx">
                          <img src="Assets/img/logo.png" alt="logo share book" />
                     </a>
-                    <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                        Menu
-               
-                    <i class="fas fa-bars"></i>
-                    </button>
+                    <div class="dropdown">
+                      <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                             Menu 
+                      </button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="Category.aspx">Danh mục</a>
+                        <a class="dropdown-item" href="Post.aspx">Đăng sách</a>
+                        <a class="dropdown-item" href="User.aspx">Trang cá nhân</a>
+                        <asp:LinkButton class="dropdown-item" runat="server" ID="LinkButton1" OnClick="Logout_Click">Đăng xuất</asp:LinkButton>
+                      </div>
+                    </div>
                     <div class="collapse navbar-collapse" id="navbarResponsive">
                         <ul class="navbar-nav">
                             <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="Category.aspx">Danh mục</a></li>
@@ -92,5 +98,8 @@
       </div>
       <!-- Copyright -->
     </footer>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

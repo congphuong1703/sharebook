@@ -18,6 +18,8 @@ namespace sharebook
 
             var userId = Request.QueryString["user_id"];
             string storeProcedure = "getInfoUser";
+            string listFavoriteProcedure = "listFavorite";
+            string listPostProcedure = "listPost";
             Dictionary<string, object> map = new Dictionary<string, object> { };
             UserModel userModel = (UserModel)Session["user"];
             if (String.IsNullOrEmpty(userId) && userModel != null)
@@ -35,6 +37,17 @@ namespace sharebook
             DataTable dt = DataProvider.getInstance.ExecuteQuery(storeProcedure, map);
             RepeaterProfile.DataSource = dt;
             RepeaterProfile.DataBind();
+
+            if(!IsPostBack)
+            {
+                DataTable dataTable = DataProvider.getInstance.ExecuteQuery(listFavoriteProcedure, map);
+                listFavorite.DataSource = dataTable;
+                listFavorite.DataBind();
+
+                DataTable dataTable2 = DataProvider.getInstance.ExecuteQuery(listPostProcedure, map);
+                listPost.DataSource = dataTable2;
+                listPost.DataBind();
+            }
 
         }
 

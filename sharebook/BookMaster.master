@@ -8,12 +8,8 @@
     <div style="background-color: #5C8AC5;">
         <div class="container px-0">
             <div class="pil-wrapper">
-                <canvas width="1140" height="168" class="pil-placeholder"></canvas>
                 <div class="pil-tiny-wrapper pil-loaded">
-                    <img alt="Viblo Contribution Event 2021" src="https://images.viblo.asia/60/688a2cf2-99b3-481c-abbe-16000a16c68b.png" width="1140" height="168" class="pil-tiny-img">
-                </div>
-                <div class="pil-original-wrapper pil-loaded">
-                    <img alt="Viblo Contribution Event 2021" data-pil-src="https://images.viblo.asia/full/688a2cf2-99b3-481c-abbe-16000a16c68b.png" width="1140" height="168" class="pil-original-img" src="https://images.viblo.asia/full/688a2cf2-99b3-481c-abbe-16000a16c68b.png">
+                    <img alt="Viblo Contribution Event 2021" src="https://images.unsplash.com/photo-1529148482759-b35b25c5f217?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" width="1140" height="200" class="pil-tiny-img">
                 </div>
             </div>
         </div>

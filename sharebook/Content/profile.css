@@ -171,3 +171,14 @@
 .form-edit-profile {
     margin-top: 20px;
 }
+
+.user-info {
+    margin-bottom: 7rem;
+}
+
+.my-thumbnail {
+    max-width: 150px;
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+}

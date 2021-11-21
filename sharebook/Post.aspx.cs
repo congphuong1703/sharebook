@@ -111,7 +111,8 @@ namespace sharebook
                         categoryMap.Add("@pCategoryId", CategoryDropDownList.SelectedValue);
                         DataProvider.getInstance.ExecuteQuery(addBookCategory, categoryMap);
 
-                        //Response.Redirect("User.aspx");
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Đăng bài thành công')", true);
+                        Response.Redirect("Category.aspx");
                         //thong bao
                     }
                     else
@@ -124,6 +125,19 @@ namespace sharebook
             {
                 Response.Redirect("SignIn.aspx");
             }
+        }
+
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            HttpPostedFile file = images.PostedFile;
+            int fileSize = file.ContentLength;
+            args.IsValid = false;
+
+            if(fileSize > 1048576) // 1mb
+            {
+                return;
+            }
+            args.IsValid = true;
         }
     }
 }
