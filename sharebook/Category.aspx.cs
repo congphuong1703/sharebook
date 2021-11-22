@@ -98,7 +98,7 @@ namespace sharebook
             }
             else
             {
-                Response.Write("<script>alert('Thêm vào danh sách đọc sau thất bại!');</script>");
+                Response.Write("<script>alert('Thêm thành công vào danh sách đọc sau!');</script>");
             }
 
         }

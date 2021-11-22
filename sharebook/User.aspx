@@ -76,7 +76,7 @@
                           <ItemTemplate>
                                 <tr>
                                   <th scope="row">
-                                        <%# Eval("Id") %>
+                                        <%# Eval("favourite_id") %>
                                   </th>
                                   <td>
                                       <a href="Book.aspx?book_id=<%# Eval("book_id")%>">
@@ -87,7 +87,7 @@
                                       <img src="<%# Eval("thumbnail") %>" alt="<%# Eval("name") %>" class="my-thumbnail" />
                                   </td>
                                   <td>
-                                      <a href="User.aspx?user_id=<%# Eval("author_id") %>">
+                                      <a href="User.aspx?user_id=<%# Eval("user_id") %>">
                                         <%# Eval("author") %></td>
                                       </a>
                                 </tr>
@@ -114,10 +114,10 @@
                           <ItemTemplate>
                                 <tr>
                                   <th scope="row">
-                                        <%# Eval("Id") %>
+                                        <%# Eval("user_id") %>
                                   </th>
                                   <td>
-                                      <a href="Book.aspx?book_id=<%# Eval("Id")%>">
+                                      <a href="Book.aspx?book_id=<%# Eval("user_id")%>">
                                           <%# Eval("name") %>
                                       </a>
                                   </td>

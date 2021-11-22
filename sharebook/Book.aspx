@@ -1,4 +1,4 @@
-﻿q   <%@ Page Title="" Language="C#" MasterPageFile="~/BookMaster.Master" AutoEventWireup="true" CodeBehind="Book.aspx.cs" Inherits="sharebook.Book" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/BookMaster.Master" AutoEventWireup="true" CodeBehind="Book.aspx.cs" Inherits="sharebook.Book" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderBook" runat="server">
     <link href="./Content/Category.css" rel="stylesheet" />
