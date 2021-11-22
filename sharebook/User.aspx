@@ -16,18 +16,24 @@
                                 <div class="widget-body pb-0">
                                     <div class="row d-flex align-items-center">
                                         <div class="col-xl-6 col-md-6 d-flex justify-content-lg-start justify-content-md-start justify-content-center">
-                                            <ul>
+                                            <ul class="user-info">
                                                 <li>
-                                                    <div class="counter"><%#Eval("favourite") %></div>
-                                                    <div class="heading">Lưu trữ</div>
+                                                    <div class="counter"><%#Eval("favorite") %></div>
+                                                      <a class="btn btn-light" data-toggle="collapse" href="#tableFavorite" role="button" aria-expanded="false" aria-controls="tableFavorite">
+                                                        Lưu trữ
+                                                      </a>
                                                 </li>
                                                 <li>
                                                     <div class="counter"><%#Eval("comment") %></div>
-                                                    <div class="heading">Bình luận</div>
+                                                     <a class="btn btn-light" data-toggle="collapse" href="#tableComment" role="button" aria-expanded="false" aria-controls="tableComment">
+                                                         <div>Bình luận</div> 
+                                                      </a>
                                                 </li>
                                                 <li>
                                                     <div class="counter"><%#Eval("book") %></div>
-                                                    <div class="heading">Bài viết</div>
+                                                     <a class="btn btn-light" data-toggle="collapse" href="#tablePost" role="button" aria-expanded="false" aria-controls="tablePost">
+                                                        Bài viết
+                                                      </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -54,6 +60,81 @@
                 </div>
             </ItemTemplate>
         </asp:Repeater>
+            <div class="collapse" id="tableFavorite">
+              <div class="card card-body">
+                 <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Tên sách</th>
+                      <th scope="col">Ảnh</th>
+                      <th scope="col">Tác giả</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <asp:Repeater ID="listFavorite" runat="server">
+                          <ItemTemplate>
+                                <tr>
+                                  <th scope="row">
+                                        <%# Eval("Id") %>
+                                  </th>
+                                  <td>
+                                      <a href="Book.aspx?book_id=<%# Eval("book_id")%>">
+                                          <%# Eval("name") %>
+                                      </a>
+                                  </td>
+                                  <td>
+                                      <img src="<%# Eval("thumbnail") %>" alt="<%# Eval("name") %>" class="my-thumbnail" />
+                                  </td>
+                                  <td>
+                                      <a href="User.aspx?user_id=<%# Eval("author_id") %>">
+                                        <%# Eval("author") %></td>
+                                      </a>
+                                </tr>
+                          </ItemTemplate>
+                      </asp:Repeater>
+                  </tbody>
+              </table>
+              </div>
+            </div>
+
+          <div class="collapse" id="tablePost">
+              <div class="card card-body">
+                 <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Tên sách</th>
+                      <th scope="col">Ảnh</th>
+                      <th scope="col">Tác giả</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <asp:Repeater ID="listPost" runat="server">
+                          <ItemTemplate>
+                                <tr>
+                                  <th scope="row">
+                                        <%# Eval("Id") %>
+                                  </th>
+                                  <td>
+                                      <a href="Book.aspx?book_id=<%# Eval("Id")%>">
+                                          <%# Eval("name") %>
+                                      </a>
+                                  </td>
+                                  <td>
+                                      <img src="<%# Eval("thumbnail") %>" alt="<%# Eval("name") %>" class="my-thumbnail" />
+                                  </td>
+                                  <td> <%# Eval("author") %></td>
+
+                                </tr>
+                          </ItemTemplate>
+                      </asp:Repeater>
+                  </tbody>
+              </table>
+              </div>
+            </div>
+            
+
         <div>
         </div>
     </div>

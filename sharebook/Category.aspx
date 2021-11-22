@@ -7,7 +7,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContentBook" runat="server">
     <div class="container">
         <div class="jumbotron title-home text-center">
-            <h6>Sách hiện thị dưới dạng danh sách với đầy đủ nội dung. Ví dụ bên dưới.
+            <h6>Nền tảng truyền thông xã hội về chia sẻ truyện được yêu thích nhất thế giới
             </h6>
         </div>
         <span runat="server" id="message"></span>

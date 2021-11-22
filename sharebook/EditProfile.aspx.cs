@@ -25,6 +25,7 @@ namespace sharebook
                 UserModel userModel = (UserModel)Session["user"];
                 email.Text = userModel.email;
                 username.Text = userModel.name;
+                password.Text = userModel.password;
 
                 if(userModel.avatar == "")
                 {

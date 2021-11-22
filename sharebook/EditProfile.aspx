@@ -25,6 +25,7 @@
                                      <div class="form-group">
                                           <label for="username">Username</label>
                                           <asp:TextBox ID="username" runat="server" CssClass="form-control" type="text" name="username" AutoCompleteType="None" placeholder="Tên mới"/>
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="username" runat="server" ErrorMessage="Username không được để trống" ForeColor="Red"></asp:RequiredFieldValidator>
                                     </div>
 
                                 </div>
@@ -32,6 +33,7 @@
                                      <div class="form-group">
                                          <label for="email">Email</label>
                                          <asp:TextBox ID="email" runat="server" CssClass="form-control" type="email" name="email"  AutoCompleteType="None" placeholder="Email mới" />
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="email" ErrorMessage="Email không được để trống" ForeColor="Red"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
                             </div>
@@ -41,6 +43,7 @@
                                      <div class="form-group">
                                         <label for="password">Password</label>
                                         <asp:TextBox ID="password" runat="server" CssClass="form-control" type="password" name="password"  AutoCompleteType="None"  placeholder="Mật khẩu mới" />
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="password" ErrorMessage="Password không được để trống" ForeColor="Red"></asp:RequiredFieldValidator>
                                      </div>
                                 </div>
                             </div>

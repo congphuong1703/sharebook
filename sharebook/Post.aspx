@@ -33,6 +33,7 @@
                                     <label class="require">*</label>
                                 </label>
                                 <asp:FileUpload runat="server" accept=".pdf" class="form-control-file" ID="images" />
+                                <asp:CustomValidator ID="CustomValidator1" ControlToValidate="images" runat="server" OnServerValidate="CustomValidator1_ServerValidate" ErrorMessage="File không được quá 1mb" ForeColor="Red"></asp:CustomValidator>
                                 <div class="invalid-feedback">Nội dung không được để trống!</div>
                             </div>
                             <div class="col-md-12 mt-3">

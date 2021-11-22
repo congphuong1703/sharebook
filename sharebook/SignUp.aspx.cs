@@ -43,27 +43,35 @@ namespace sharebook
                 if (dtExists.Rows.Count == 0)
                 {
                     map.Add("@p_email", email);
-                    map.Add("@p_password", HashCode.Encrypt(password, hashKey, true));
-                    map.Add("@p_role", 0);
+                    map.Add("@p_password", password);
+                    map.Add("@p_role", 1);
                     map.Add("@p_name", name);
-                    MySqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
 
+                    SqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
                     if (rdr.RecordsAffected > 0)
                     {
-                        Response.Redirect("SignIn.aspx");
+                        map.Add("@p_email", email);
+                        map.Add("@p_password", HashCode.Encrypt(password, hashKey, true));
+                        map.Add("@p_role", 0);
+                        map.Add("@p_name", name);
+                        MySqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
+
+                        if (rdr.RecordsAffected > 0)
+                        {
+                            Response.Redirect("SignIn.aspx");
+                        }
+                        else
+                        {
+                            errorNotify.Text = "Đăng ký thành thất bại. Kiểm tra lại thông tin";
+                        }
+                        rdr.Close();
                     }
                     else
                     {
-                        errorNotify.Text = "Đăng ký thành thất bại. Kiểm tra lại thông tin";
+                        errorNotify.Text = "Email này đã được sử dụng.";
                     }
-                    rdr.Close();
                 }
-                else
-                {
-                    errorNotify.Text = "Email này đã được sử dụng.";
-                }
-            }
-
+}
         }
 
         protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)

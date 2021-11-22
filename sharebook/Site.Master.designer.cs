@@ -24,14 +24,15 @@ namespace sharebook
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
 
         /// <summary>
-        /// manageUrl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor manageUrl;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
 
+        /// <summary>
         /// loginBtn control.
         /// </summary>
         /// <remarks>

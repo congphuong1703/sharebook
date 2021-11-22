@@ -18,6 +18,11 @@ namespace sharebook
 
         protected void logginBtn_Click(object sender, EventArgs e)
         {
+            if(!IsValid)
+            {
+                CustomValidator1.Text = "Password phải lớn hơn 8 kí tự nhé !";
+                return;
+            }
             string login = "login";
             Dictionary<string, object> map = new Dictionary<string, object> { };
             map.Add("@p_email", email.Text.Trim());
@@ -40,9 +45,19 @@ namespace sharebook
             else
             {
                 Response.Write("<script>alert('Sai email hoặc mật khẩu !');</script>");
+                return;
             }
         }
 
-
+        protected void CustomValidator1_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+        {
+            if(password.Text.Length >= 8)
+            {
+                args.IsValid = true;
+            } else
+            {
+                args.IsValid = false;
+            }
+        }
     }
 }
