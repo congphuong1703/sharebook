@@ -18,7 +18,7 @@
                                         <div class="col-xl-6 col-md-6 d-flex justify-content-lg-start justify-content-md-start justify-content-center">
                                             <ul class="user-info">
                                                 <li>
-                                                    <div class="counter"><%#Eval("favorite") %></div>
+                                                    <div class="counter"><%#Eval("favourite") %></div>
                                                       <a class="btn btn-light" data-toggle="collapse" href="#tableFavorite" role="button" aria-expanded="false" aria-controls="tableFavorite">
                                                         Lưu trữ
                                                       </a>

@@ -102,6 +102,7 @@
         </div>
     </div>
     <script src="Scripts/jquery-3.5.1.js"></script>
+    <%--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>--%>
     <script src="Scripts/bootstrap.js"></script>
     <script src="Scripts/admin.js"></script>
     <script>

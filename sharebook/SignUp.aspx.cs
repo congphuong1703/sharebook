@@ -47,15 +47,9 @@ namespace sharebook
                     map.Add("@p_role", 1);
                     map.Add("@p_name", name);
 
-                    SqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
+                    MySqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
                     if (rdr.RecordsAffected > 0)
                     {
-                        map.Add("@p_email", email);
-                        map.Add("@p_password", HashCode.Encrypt(password, hashKey, true));
-                        map.Add("@p_role", 0);
-                        map.Add("@p_name", name);
-                        MySqlDataReader rdr = DataProvider.getInstance.ExecuteQueryReader(createNewAccount, map);
-
                         if (rdr.RecordsAffected > 0)
                         {
                             Response.Redirect("SignIn.aspx");
@@ -76,6 +70,7 @@ namespace sharebook
 
         protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
         {
+            //check password
             //string strRegex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
             //Regex regex = new Regex(strRegex);
             //bool is_valid = false;

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/BookMaster.Master" AutoEventWireup="true" CodeBehind="Book.aspx.cs" Inherits="sharebook.Book" %>
+﻿q   <%@ Page Title="" Language="C#" MasterPageFile="~/BookMaster.Master" AutoEventWireup="true" CodeBehind="Book.aspx.cs" Inherits="sharebook.Book" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderBook" runat="server">
     <link href="./Content/Category.css" rel="stylesheet" />
@@ -20,14 +20,16 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-8">
-                                        <label class="text-muted"><%#Eval("created_at") %></label> by <a href="User.aspx?user_id=<%#Eval("userId") %>"><%#Eval("author") %></a>
+                                    <div class="col-6">
+                                        <label class="text-muted"><%#Eval("created_at") %></label>
+                                        by <a href="User.aspx?user_id=<%#Eval("userId") %>"><%#Eval("author") %></a>
                                     </div>
-                                    <div class="col-2">
-                                        
-                                    </div>
-                                    <div class="col-2">
-                                     
+                                    <div class="col-6">
+                                        <asp:Repeater ID="RepeaterBookTags" runat="server">
+                                            <ItemTemplate>
+                                                <a href="Category.aspx?tag=<%#Eval("name") %>" class="el-tag tag el-tag--info el-tag--mini" data-v-1ebc36b8="" data-v-190ce5c0=""><%#Eval("name") %> </a>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +40,7 @@
                                         <div class="col-12">
                                             <h2>Sách: <%#Eval("name") %></h2>
                                         </div>
-                                        <div class="col-12">    
+                                        <div class="col-12">
                                             <h4>Mô tả</h4>
                                             <p><%#Eval("description") %></p>
                                         </div>
@@ -72,23 +74,12 @@
                                     </div>
                                 </div>
 
-                              
+
                             </div>
                         </div>
 
-                     
+
                     </div>
-                </div>
-                   <div class="row">
-                       <div class="col-2"></div>
-                       <div class="col-8">
-                             <asp:Repeater ID="RepeaterBookTags" runat="server">
-                                   <ItemTemplate>
-                                      <a href="Category.aspx?tag=<%#Eval("name") %>" class="el-tag tag el-tag--info el-tag--mini" data-v-1ebc36b8="" data-v-190ce5c0=""><%#Eval("name") %> </a>
-                                  </ItemTemplate>
-                             </asp:Repeater>              
-                        </div>
-                 </div>
             </ItemTemplate>
         </asp:Repeater>
     </div>

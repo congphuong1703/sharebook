@@ -13,16 +13,16 @@
                 <h6 class="mb-0 text-sm">Email</h6>
             </label>
             <asp:TextBox ID="email" runat="server" type="text" name="email" placeholder="Nhập email" />
-            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="mb-2" ControlToValidate="email" runat="server" ErrorMessage="Email không được để trống" ForeColor="Red"></asp:RequiredFieldValidator>
-            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Email phải đúng định dạng" ControlToValidate="email" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>
+          <%--  <asp:RequiredFieldValidator ID="RequiredFieldValidator1" CssClass="mb-2" ControlToValidate="email" runat="server" ErrorMessage="Email không được để trống" ForeColor="Red"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ErrorMessage="Email phải đúng định dạng" ControlToValidate="email" ForeColor="Red" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"></asp:RegularExpressionValidator>--%>
         </div>
         <div class="row px-3">
             <label class="mb-1">
                 <h6 class="mb-0 text-sm">Mật khẩu</h6>
             </label>
             <asp:TextBox ID="password" runat="server" type="password" name="password" placeholder="Nhập mật khẩu" />
-           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="mb-2" ControlToValidate="password" runat="server" ErrorMessage="Password không được để trống" ForeColor="Red"></asp:RequiredFieldValidator>
-            <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Mật khẩu phải lớn hơn 8 kí tự" OnServerValidate="CustomValidator1_ServerValidate" ControlToValidate="password" ForeColor="Red"></asp:CustomValidator>
+           <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" CssClass="mb-2" ControlToValidate="password" runat="server" ErrorMessage="Password không được để trống" ForeColor="Red"></asp:RequiredFieldValidator>
+            <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Mật khẩu phải lớn hơn 8 kí tự" OnServerValidate="CustomValidator1_ServerValidate" ControlToValidate="password" ForeColor="Red"></asp:CustomValidator>--%>
             <%--<asp:RegularExpressionValidator ID="RegularExpressionValidator" runat="server" ErrorMessage="Password không đúng định dạng" ControlToValidate="txtPassword" 
                             ValidationExpression="^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*?&]{6,}" ForeColor="Red"></asp:RegularExpressionValidator>--%>
         </div>

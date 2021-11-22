@@ -20,13 +20,13 @@ namespace sharebook
         {
             if(!IsValid)
             {
-                CustomValidator1.Text = "Password phải lớn hơn 8 kí tự nhé !";
+                //CustomValidator1.Text = "Password phải lớn hơn 8 kí tự nhé !";
                 return;
             }
             string login = "login";
             Dictionary<string, object> map = new Dictionary<string, object> { };
             map.Add("@p_email", email.Text.Trim());
-            map.Add("@p_password", HashCode.Decrypt(password.Text.Trim(), hashkey, true));
+            map.Add("@p_password", password.Text.Trim());
             DataTable dataTable = DataProvider.getInstance.ExecuteQuery(login, map);
             if (dataTable.Rows.Count > 0)
             {
